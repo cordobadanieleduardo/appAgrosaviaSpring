@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Bienestar Animal / Evalución para Ganadería">
+<meta name="author" content="MAGICMV, willigan">
+<title>Animales - Evaluación - Bienestar Animal</title>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+
+<!--Font Awesome-->
+<link rel="stylesheet" th:href="@{/css/font-awesome/all.min.css}">
+
+<!-- GOOGLE WEB FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Bienestar Animal</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link" th:href="@{/inicio-contenido}">Inicio</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/finca/listar}">Finca</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/evaluacion/listar}">Evaluación</a></li>
+					<li class="nav-item"><a class="nav-link">Mi perfil</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/logout}">Salir</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<header>
+		<div class="container">
+			<img src="..." alt="Imagen">
+			<h1 class="text-center mb-5">Evaluación</h1>
+		</div>
+
+	</header>
+	<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-8 mx-auto">
+					<p>ANIMALES</p>
+					<hr>
+					<p>
+						Por favor aliste <span th:text="${numeroAnimales}"></span> novillos para la evaluación de muestra
+					</p>
+
+					<div class="row">
+						<div class="col-12">
+							<div class="accordion" id="accordionSection">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th scope="col">Cod</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="obj, consec:${evanlist}" th:object=${evan}>
+											<td>
+												<form th:action="@{/evaluacion/animales/novillo/guardar}" th:object=${evan} method="post">
+
+												   <input type="hidden" th:id="'codEvAn'+${consec.index}" th:field="*{codEvAn}" th:name="'codEvAn'+ ${obj.codEvAn}">
+												   <input type="hidden"  th:id="'codEc'+${consec.index}" th:field="*{codEc}" th:name="'codEc'+ ${obj.codEc}">
+
+													<div class="accordion-item mb-3">
+														<h2 class="accordion-header">
+															<div class="row">
+																<div class="col-sm-6">
+																	<button type="button" class="accordion-button collapsed d-inline" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse' + ${consec.index}">
+																		Animal <span th:text="${consec.index} + 1"></span>
+																	</button>
+																</div>
+																<div class="col-sm-6 ">
+																	<input type="text" th:field="*{evanIdentificador}" th:id="'evanIdentificador'+${consec.index}" th:value="${obj.evanIdentificador}"
+																		th:name="'evanIdentificador' + ${consec.index}" class="form-control d-inline" required>
+																</div>
+															</div>
+														</h2>
+														<div class="accordion-collapse collapse" th:attr="id='collapse' + ${consec.index}" data-bs-parent="#accordionSection">
+															<div class="accordion-body">
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl1q01] x10</span> ¿Cuál es la condición corporal?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio" th:field="*{evanl1q01}" th:name="*{evanl1q01} + '1'" th:id="${consec.index}+'evanl1q01gridRadios1'" value="2"
+																				checked> <label class="form-check-label" th:for="${consec.index}+'evanl1q01gridRadios1'"> <= 2 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio" th:field="*{evanl1q01}" th:name="${evanl1q01} + '1'" th:id="${consec.index}+'evanl1q01gridRadios2'" value="4">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl1q01gridRadios2'"> >= 4 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio" th:field="*{evanl1q01}" th:name="${evanl1q01} + '1'" th:id="${consec.index}+'evanl1q01gridRadios3'" value="10">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl1q01gridRadios3'"> > 2 y < 4</label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q01] x7</span> ¿Hay presencia de heridas en el animal?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q01}" th:name="${obj.codEvAn} + '9'" th:id="${consec.index}+'evanl3q01gridRadios1'" value="10"
+																				checked> <label class="form-check-label" th:for="${consec.index}+'evanl3q06gridRadios1'"> Buena: No hay alteración integumentaria (no perdida de pelo ni heridas o inflamación) </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q01}" th:name="${obj.codEvAn} + '9'" th:id="${consec.index}+'evanl3q01gridRadios2'" value="5">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q01gridRadios2'"> Regular: El animal presenta alteraciones integumentarias moderadas (es decir al menos 1 zona anatómica con pérdida de pelo, pero no hay heridas ni inflamación)</label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q01}" th:name="${obj.codEvAn} + '9'" th:id="${consec.index}+'evanl3q01gridRadios3'" value="1">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q01gridRadios3'"> Mala: el animal presenta alteraciones severas, es decir, al menos 1 lesión/inflamación en por lo menos una zona anatómica</label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q02] x10</span> ¿Hay presencia de signos respiratorios (tos,secreción nasal) en el animal? 
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q02}" th:name="${obj.codEvAn} + '10'" th:id="${consec.index}+'evanl3q02gridRadios1'" value="2"
+																				checked> <label class="form-check-label" th:for="${consec.index}+'evanl3q02gridRadios1'"> Presenta alteraciones respiratorias </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q02}" th:name="${obj.codEvAn} + '10'" th:id="${consec.index}+'evanl3q02gridRadios2'" value="10">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q02gridRadios2'"> No presenta alteraciónes respiratorias </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q03] x5</span> ¿Hay presencia de garrapatas en el animal?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q03}" th:name="${obj.codEvAn} + '7'" th:id="${consec.index}+'evanl3q03gridRadios1'" value="10"
+																				> <label class="form-check-label" th:for="${consec.index}+'evanl3q03gridRadios1'"> Bajo: hasta 15 garrapatas adultas/animal </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q03}" th:name="${obj.codEvAn} + '7'" th:id="${consec.index}+'evanl3q03gridRadios2'" value="5">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q03gridRadios2'"> Medio: de 15-25 garrapatas/animal </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q03}" th:name="${obj.codEvAn} + '7'" th:id="${consec.index}+'evanl3q03gridRadios3'" value="1">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q03gridRadios3'"> Alto: más de 25 garrapatas/animal </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q04] x3</span> ¿Hay presencia de nuches?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q04}" th:name="${obj.codEvAn} + '5'" th:id="${consec.index}+'evanl3q04gridRadios1'" value="8"
+																			> <label class="form-check-label" th:for="${consec.index}+'evanl3q04gridRadios1'"> Bajo: hasta 10 nuches/animal </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q04}" th:name="${obj.codEvAn} + '5'" th:id="${consec.index}+'evanl3q04gridRadios2'" value="4">
+																			<label class="form-check-label" th:for="evanl3q04gridRadios2"> Medio: de 11-20 nuches/animal </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q04}" th:name="${obj.codEvAn} + '5'" th:id="${consec.index}+'evanl3q04gridRadios3'" value="1">
+																			<label class="form-check-label" th:for="evanl3q04gridRadios3"> Alto: más de 20 nuches/animal </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q05] x10</span> ¿Conteo de moscas en el vientre y el lomo del animal (mosca de los cuernos)?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q05}" th:name="${obj.codEvAn} + '11'" th:id="${consec.index}+'evanl3q05gridRadios1'" value="10">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q05gridRadios1'"> Aceptable: Conteo de moscas inferior a 80 Haematobia irritans por animal </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q05}" th:name="${obj.codEvAn} + '11'" th:id="${consec.index}+'evanl3q05gridRadios2'" value="2">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q05gridRadios2'"> Inaceptable: Conteo de moscas superior a 80 Haematobia irritans por animal </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q06] x10</span> ¿Conteo de moscas en las patas del animal (mosca de los establos)?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q06}" name="${obj.codEvAn} + '14'" th:id="${consec.index}+'evanl3q06gridRadios1'" value="10"	>
+																		    <label class="form-check-label" for="${consec.index}+'evanl3q06gridRadios1'"> Aceptable: Conteo de moscas inferior a 15 Stomoxys calcitrans por animal </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q06}" name="${obj.codEvAn} + '14'" th:id="${consec.index}+'evanl3q06gridRadios2'" value="2">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q06gridRadios2'"> Inaceptable: Conteo de moscas superior a 15 Stomoxys calcitrans por animal </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q07] x10</span> ¿Hay presencia de secreción vulvar purulenta?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q07}" th:name="${obj.codEvAn} + '12'" th:id="${consec.index}+'evanl3q07gridRadios1'" value="2"
+																			> <label class="form-check-label" th:for="gridRadios1"> Hay presencia de secresión vulvar </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q07}" th:name="${obj.codEvAn} + '12'" th:id="${consec.index}+'evanl3q07gridRadios2'" value="10">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q07gridRadios2'"> No hay presencia de secresión vulvar  </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q08] x10</span> ¿Hay presencia de diarrea patológica?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q08}" th:name="${obj.codEvAn} + '13'" th:id="${consec.index}+'evanl3q08gridRadios1'" value="2"
+																				checked> <label class="form-check-label" th:for="${consec.index}+'evanl3q08gridRadios1'"> No hay presencia de signos diarreicos </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q08}" th:name="${obj.codEvAn} + '13'" th:id="${consec.index}+'evanl3q08gridRadios2'" value="10">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q08gridRadios2'"> Hay presencia de signos diarreicos </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q09] x7</span> ¿Cuál es la condición de las pezuñas del animal?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q09}" th:name="${obj.codEvAn} + '8'" th:id="${consec.index}+'evanl3q09gridRadios1'" value="10">
+																		   <label class="form-check-label" th:for="${consec.index}+'evanl3q09gridRadios1'"> Buena (pezuñas no presentan sobrecrecimiento (estan aproximadamente de 7.5 cm de largo) y no presentan alteraciones en el estuche corneo de la pezuña como grietas en la pared cornea) </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q09}" th:name="${obj.codEvAn} + '8'" th:id="${consec.index}+'evanl3q09gridRadios2'" value="5">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q09gridRadios2'"> Regular (hay un sobrecrecimiento de las pezuñas moderado, > 7.5 cm de largo), y puede tender a presentar una leve deformidad de la punta de la pezuña </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q09}" th:name="${obj.codEvAn} + '8'" th:id="${consec.index}+'evanl3q09gridRadios3'" value="1">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q09gridRadios3'"> Mala (hay un sobrecrecimiento severo de las pezuñas donde la pared dorsal aumenta de longitud, se vuelve cóncava y se deforma la punta de la pezuña (apariencia de zapato de payaso), y hay alteraciones evidentes en el estuche corneo de la pezuña como grietas en la pared cornea </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q10] x10</span> ¿Cuántos animales cojos?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q10}" name="${obj.codEvAn} + '2'" th:id="${consec.index}+'evanl3q10gridRadios1'" value="10">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q10gridRadios1'"> No hay presencia de cojeras  </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q10}" name="${obj.codEvAn} + '2'" th:id="${consec.index}+'evanl3q10gridRadios2'" value="1">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q10gridRadios2'"> Hay presencia de cojeras </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q011] x10</span> ¿Cuántos movimientos para repeler moscas (movimientos de cola, movimientos de cabeza, reflejo del movimiento de la piel, movimiento de patas) realiza el animal? 
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q11}" name="${obj.codEvAn} + '3'" th:id="${consec.index}+'evanl3q11gridRadios1'" value="7">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl3q11gridRadios1'"> Muchos movimientos (> 5 por minuto) </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl3q11}" name="${obj.codEvAn} + '3'" th:id="${consec.index}+'evanl3q11gridRadios2'" value="10">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl2q11gridRadios2'"> Pocos movimientos (< 5 por minuto) </label>
+																		</div>
+																	</div>
+																</fieldset>
+																
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl5q02] x10</span> ¿Cuál es la distancia de fuga?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl5q02}" name="${obj.codEvAn} + '15'" th:id="${consec.index}+'evanl5q02gridRadios1'" value="10">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl5q02gridRadios1'"> Buena: <= de 4 metros </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio" th:field="*{evanl5q02}" name="${obj.codEvAn} + '15'" th:id="${consec.index}+'evanl5q02gridRadios2'" value="2">
+																			<label class="form-check-label" th:for="${consec.index}+'evanl5q02gridRadios2'"> Mala: >= de 4 metros </label>
+																		</div>
+																	</div>
+																</fieldset>
+																<button type="submit" class="btn btn-success">Guardar</button>
+															</div>
+														</div>
+													</div>
+												</form>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<br> <a th:href="@{'/evaluacion/corrales/nuevo/'+${codEc}}" class="btn btn-success">Siguiente: Corrales animal</a>
+					<!-- <a
+						th:href="@{'/evaluacion/animales/list/'+${codFinca}+'/'+${codEc}}"
+						class="btn btn-success">Lista de animales</a> -->
+					<!-- 						<a -->
+					<!-- 							th:href="@{'/evaluacion/animales/list/'+${codFinca}+'/'+${codEc}}" -->
+					<!-- 							class="btn btn-primary">Cancelar</a> -->
+
+
+					<!--<button class="btn btn-primary">Volver</button>
+                            <button class="btn btn-success">Siguiente: Libertad 1: libres de hambre y sed</button>-->
+					<!--<a th:href="@{/inicio-contenido}" class="btn btn-primary">Cancelar</a>
+                            <a th:href="@{/evaluacion-corrales}" class="btn btn-success">Siguiente: CORRALES</a>-->
+
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer class="bg-dark text-white py-3 mt-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-8">
+					<p>©2022 Agrosavia</p>
+				</div>
+				<div class="col-4">
+					<p class="text-right">Desarrollado por: magicmv.com</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+	<!-- 	<script type="text/javascript" src="@{/js/animalesJ.js}"></script>
+ -->
+
+	<script type="text/javascript" th:inline="javascript">
+	
+		/*<![CDATA[*/
+		var list = /*[[${evanlist}]]*/null;
+		for (i = 0; i < list.length; i++) {
+			document.getElementById('codEvAn' + i).value = list[i].codEvAn;
+			document.getElementById('evanIdentificador' + i).value = list[i].evanIdentificador;
+			document.getElementById('codEc' + i).value = list[i].codEc;
+
+			if (list[i].evanl1q01 == "2") {
+				document.getElementById(i + 'evanl1q01gridRadios1').checked = true;
+			} else if (list[i].evanl1q01 == "4") {
+				document.getElementById(i + 'evanl1q01gridRadios2').checked = true;
+			} else if (list[i].evanl1q01 == "10") {
+				document.getElementById(i + 'evanl1q01gridRadios3').checked = true;
+			}
+			
+			// 			evanl2q01
+			if (list[i].evanl2q01 == "4") {
+				document.getElementById(i + 'evanl2q01gridRadios1').checked = true;
+			} else if (list[i].evanl2q01 == "10") {
+				document.getElementById(i + 'evanl2q01gridRadios2').checked = true;
+			} else if (list[i].evanl2q01 == "2") {
+				document.getElementById(i + 'evanl2q01gridRadios3').checked = true;
+			} else if (list[i].evanl2q01 == "1") {
+				document.getElementById(i + 'evanl2q01gridRadios4').checked = true;
+			}
+			// 			evanl3q01
+			if (list[i].evanl3q01 == "10") {
+				document.getElementById(i + 'evanl3q01gridRadios1').checked = true;
+			} else if (list[i].evanl3q01 == "5") {
+				document.getElementById(i + 'evanl3q01gridRadios2').checked = true;
+			} else if (list[i].evanl3q01 == "1") {
+				document.getElementById(i + 'evanl3q01gridRadios3').checked = true;
+			} 
+	
+			// 			evanl3q02
+			if (list[i].evanl3q02 == "2") {
+				document.getElementById(i + 'evanl3q02gridRadios1').checked = true;
+			} else if (list[i].evanl3q02 == "10") {
+				document.getElementById(i + 'evanl3q02gridRadios2').checked = true;
+			}
+			
+			//		    evanl3q02
+			else if (list[i].evanl3q02 == "10") {
+				document.getElementById(i + 'evanl3q02gridRadios1').checked = true;
+			} else if (list[i].evanl3q01 == "2") {
+				document.getElementById(i + 'evanl3q02gridRadios2').checked = true;
+			}
+			// 			evanl3q03
+			if (list[i].evanl3q03 == "10") {
+				document.getElementById(i + 'evanl3q03gridRadios1').checked = true;
+			} else if (list[i].evanl3q03 == "5") {
+				document.getElementById(i + 'evanl3q03gridRadios2').checked = true;
+			} else if (list[i].evanl3q03 == "1") {
+				document.getElementById(i + 'evanl3q03gridRadios3').checked = true;
+			}
+			// 			evanl3q04
+			if (list[i].evanl3q04 == "8") {
+				document.getElementById(i + 'evanl3q04gridRadios1').checked = true;
+			} else if (list[i].evanl3q04 == "4") {
+				document.getElementById(i + 'evanl3q04gridRadios2').checked = true;
+			} else if (list[i].evanl3q04 == "1") {
+				document.getElementById(i + 'evanl3q04gridRadios3').checked = true;
+			}
+			
+			// 			evanl3q05
+			if (list[i].evanl3q05 == "10") {
+				document.getElementById(i + 'evanl3q05gridRadios1').checked = true;
+			} else if (list[i].evanl3q05 == "2") {
+				document.getElementById(i + 'evanl3q05gridRadios2').checked = true;
+			}
+		
+		
+			// 			evanl3q06
+			if (list[i].evanl3q06 == "10") {
+				document.getElementById(i + 'evanl3q06gridRadios1').checked = true;
+			} else if (list[i].evanl3q06 == "2") {
+				document.getElementById(i + 'evanl3q06gridRadios2').checked = true;
+			} 
+			// 			evanl3q07
+			if (list[i].evanl3q07 == "10") {
+				document.getElementById(i + 'evanl3q07gridRadios1').checked = true;
+			} else if (list[i].evanl3q07 == "2") {
+				document.getElementById(i + 'evanl3q07gridRadios2').checked = true;
+			} 
+		
+			// 			evanl3q08
+			if (list[i].evanl3q08 == "2") {
+				document.getElementById(i + 'evanl3q08gridRadios1').checked = true;
+			} else if (list[i].evanl3q08 == "10") {
+				document.getElementById(i + 'evanl3q08gridRadios2').checked = true;
+			} 
+			
+			// 			evanl3q09
+			if (list[i].evanl3q09 == "10") {
+				document.getElementById(i + 'evanl3q09gridRadios1').checked = true;
+			} else if (list[i].evanl3q09 == "5") {
+				document.getElementById(i + 'evanl3q09gridRadios2').checked = true;
+			} else if (list[i].evanl3q09 == "1") {
+				document.getElementById(i + 'evanl3q09gridRadios3').checked = true;
+			}
+			// 			evanl3q10
+			if (list[i].evanl3q10 == "10") {
+				document.getElementById(i + 'evanl3q10gridRadios1').checked = true;
+			} else if (list[i].evanl3q10 == "1") {
+				document.getElementById(i + 'evanl3q10gridRadios2').checked = true;
+			} 
+			
+			// 			evanl3q11
+			if (list[i].evanl3q11 == "10") {
+				document.getElementById(i + 'evanl3q11gridRadios1').checked = true;
+			} else if (list[i].evanl3q11 == "7") {
+				document.getElementById(i + 'evanl3q11gridRadios2').checked = true;
+			} else if (list[i].evanl3q11 == "1") {
+				document.getElementById(i + 'evanl3q11gridRadios3').checked = true;
+			}			
+			
+			// 			evanl3q12
+			if (list[i].evanl3q12 == "10") {
+				document.getElementById(i + 'evanl3q12gridRadios1').checked = true;
+			} else if (list[i].evanl3q12 == "7") {
+				document.getElementById(i + 'evanl3q12gridRadios2').checked = true;
+			} else if (list[i].evanl3q12 == "1") {
+				document.getElementById(i + 'evanl3q12gridRadios3').checked = true;
+			}			
+			
+			// 			evanl5q01
+			if (list[i].evanl5q01 == "2") {
+				document.getElementById(i + 'evanl5q01gridRadios1').checked = true;
+			} else if (list[i].evanl5q01 == "10") {
+				document.getElementById(i + 'evanl5q01gridRadios2').checked = true;
+			} 
+			
+			// 			evanl5q02
+			if (list[i].evanl5q02 == "10") {
+				document.getElementById(i + 'evanl5q02gridRadios1').checked = true;
+			} else if (list[i].evanl5q02 == "2") {
+				document.getElementById(i + 'evanl5q02gridRadios2').checked = true;
+			} 
+		}
+		/*]]>*/
+	</script>
+
+	<!--<script src="https://kit.fontawesome.com/62ea397d3a.js" crossorigin="anonymous"></script>-->
+</body>
+</html>

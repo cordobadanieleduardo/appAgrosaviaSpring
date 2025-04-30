@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bienestar Animal / Evalución para Ganadería">
+    <meta name="author" content="MAGICMV, willigan">
+    <title>Libertad 3 - Evaluación - Bienestar Animal</title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+	
+	<!--Font Awesome-->
+	<link rel="stylesheet" th:href="@{/css/font-awesome/all.min.css}">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Bienestar Animal</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/inicio-contenido}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/finca/listar}">Finca</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Evaluación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Mi perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Salir</a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header>
+            <div class="container">
+                <img src="..." alt="Imagen">
+                <h1 class="text-center mb-5">Evaluación libertad 1 en vacas en producción</h1>
+            </div>
+           
+        </header>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col-8 mx-auto" >
+                        <p>Libertad 1: libres de hambre y sed</p>
+                        <hr>
+                        <form th:action="@{/evaluacion/libertad1-vaca/guardar}" th:object="${nuevo}" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                
+                                	<input type="hidden" th:field="*{codEc}" th:value="*{codEc}">
+                                	
+                                    <label class="form-label"><span class="apuntes">[elv_q01] x7</span> ¿Cuál es la fuente de agua de bebida?</label>
+                                    <select th:field="*{el1Q01}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Agua tratada o de acueducto</option>
+                                        <option th:value="5">Fuentes de agua naturales (Rios, riachuelo, caños, pozos)</option>
+                                    </select>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q02] x7</span> ¿Cuál es la condición bebederos?</label>
+                                    <select th:field="*{el1Q02}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="1">No hay bebederos</option>
+                                        <option th:value="10">Bueno </option>
+                                        <option th:value="5">Regular</option>
+                                        <option th:value="3">Malo</option>
+                                    </select>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q03] x7</span> ¿Cúal es la limpieza de los bebederos?</label>
+                                    <select th:field="*{el1Q03}" name="" id="" class="form-select" required>
+                                        <option value="" selected  > Seleccionar...</option>
+                                        <option th:value="10">Limpios</option>
+                                        <option th:value="5">Regulares</option>
+                                        <option th:value="1">Sucios</option>
+                                    </select>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q04] x10</span> ¿Hay presencia suficiente de agua en los bebederos?</label>
+                                    <select th:field="*{el1Q04}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Si</option>
+                                        <option th:value="1">No</option>
+                                    </select>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q05] x5</span> ¿Cuál es la limpieza de comederos y saladeros?</label>
+                                    <select th:field="*{el1Q05}" name="" id="" class="form-select" required>
+                                        <option value="" selected  >Seleccionar...</option>
+                          			    <option th:value="10">Limpios</option>
+                                        <option th:value="5">Regulares</option>
+                                        <option th:value="1">Sucios</option>
+                                    </select>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q06] x5</span> ¿Cuál es número de bebederos por potrero?</label>
+                                    <select th:field="*{el1Q06}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="1">0</option>
+                                        <option th:value="7">1</option>
+                                    </select>
+                                </div>       
+                            </div>
+                            <br>
+<!--                            <button class="btn btn-primary">Volver</button> -->
+<!--                             <a class="btn btn-primary" th:href="@{'/evaluacion/libertad2-vaca/'+*{codElvaca}}" >Evaluación</a> -->
+                           
+                            <button type="submit" class="btn btn-success">Siguiente: Libertad 2 para Vaca</button>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+        </main>
+        <footer class="bg-dark text-white py-3 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8">
+                        <p>©2022 Agrosavia</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-right">Desarrollado por: magicmv.com</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!--<script src="https://kit.fontawesome.com/62ea397d3a.js" crossorigin="anonymous"></script>-->
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bienestar Animal / Evalución para Ganadería">
+    <meta name="author" content="MAGICMV, willigan">
+    <title>Bienestar Animal</title>
+
+	<!-- Bootstrap CSS -->
+	<!-- <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}"> -->
+	
+	<!--Font Awesome-->
+	<!-- <link rel="stylesheet" th:href="@{/css/font-awesome/all.min.css}"> -->
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Bienestar - Ganadería</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+        <header>
+            <div class="container">
+        		<center>
+                	<img th:src="@{/img/logo-agrosavia.png}" alt="Imagen"  width="600" height="100">
+                	<h1 class="text-center">Evaluación de Bienestar Animal para Ganadería</h1>
+		        </center> 
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-1">
+                                    1.
+                                </div>
+                                <div class="col-11">
+                                    <p>¿Qué es?<br>
+                                        Software SATD "Bienestar Animal para Ganadería"</p>
+                                    <p> 
+                                        Es un aplicativo gratuito desarrollado por AGROSAVIA, cuya función es evaluar y mejorar el bienestar bovino en los sistemas de lechería especializada del trópico alto. El software SATD “Bienestar animal para ganadería” permite evaluar las fincas, generar calificaciones por componentes y sugiere planes de acción, con el fin de incrementar la productividad y competitividad, mediante la mejora del bienestar animal.</p>
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1">
+                                    2.
+                                </div>
+                                <div class="col-11">
+                                    <p>¿Cómo funciona?<br>
+                                        Pasos para su uso</p>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="card w-80">
+                                                <img src="..." class="card-img-top" alt="Foto">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Card title</h5>
+                                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="card w-80">
+                                                <img src="..." class="card-img-top" alt="Foto">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Card title</h5>
+                                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="card w-80">
+                                                <img src="..." class="card-img-top" alt="Foto">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Card title</h5>
+                                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="card w-80">
+                                                <img src="..." class="card-img-top" alt="Foto">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Card title</h5>
+                                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="container">
+                            <form th:action="@{/validar}" method="POST">
+                                <p>Ingresar</p>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" name="correo" placeholder="Correo">
+                                </div>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" name="contrasena" placeholder="Contraseña">
+                                </div>
+                                <div class="mb-3">
+                                    <button type="submit" class="btn btn-success d-block w-100">Entrar</button>
+                                    <!-- <a th:href="@{/inicio-contenido}" class="btn btn-success">Entrar</a> -->
+                                </div>
+                                <div th:if="${#request.getParameter('error')}">Correo y contraseña incorrectos</div>
+                                
+                            </form>
+                            <a th:href="@{/usuario/nuevo}" class="text-center d-block"><small>Registrar</small></a>
+                            <a href="#" class="text-center d-block" data-bs-toggle="modal" data-bs-target="#recuperar-password"><small>Recuperar contraseña</small></a>
+                                <div class="modal fade" id="recuperar-password" tabindex="-1" aria-labelledby="recuperar-password" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Recuperar Contraseña</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <p>Por favor ingrese el correo electrónico registrado y enviaremos un correo con la nueva clave.</p>
+                                            <p>Dirección de correo registrada:</p>
+                                            <form action="">
+                                                <input type="email" class="form-control">
+                                            </form>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="button" class="btn btn-success">Recuperar</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+
+                            <hr>
+                            <p>Videos</p>
+                            <div class="row">
+                                <div class="col-4"><img src="..." alt="Thumbnail" class="w-90"></div>
+                                <div class="col-4"><img src="..." alt="Thumbnail" class="w-90"></div>
+                                <div class="col-4"><img src="..." alt="Thumbnail" class="w-90"></div>
+                            </div>
+    
+                            <hr>
+                            <p>Más información</p>
+                            <p><i class="fas fa-folder-open"></i> Oferta tecnológica</p>
+                            <p><i class="fab fa-youtube"></i> Agrosavia TV</p>
+                            <p><i class="fab fa-pagelines"></i> Agrosavia</p>
+    
+                            <br>
+                            <p>Acerca</p>
+                            <!--<p><i class="fas fa-info-circle"></i> Bienestar Animal</p>-->
+                            <a href="#" class="d-block" data-bs-toggle="modal" data-bs-target="#acerca-de"><i class="fas fa-info-circle"></i> Bienestar Animal</a>
+                                <div class="modal fade" id="acerca-de" tabindex="-1" aria-labelledby="acerca-de" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Presentación de Bienestar Animal y del equipo desarrollador</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                        <div class="modal-body">
+                                            <p>Agrosavia ofrece al servicio del sector pecuario colombiano, el software Más Bienestar, con acceso gratuito para los distintos usuarios en el tema de bienestar bovino en ganado lechero del trópico alto, promoviendo de esta manera la apropiación social del conocimiento especializado, financiado con recursos públicos.</p>
+                                        </div>
+                                          
+                                        <p>Grupo de trabajo</p>
+                                        <ul>
+                                            <li>Fredy Enrique García Castro, MVZ, MSc, PhD (Líder y coordinador del proyecto)</li>
+                                            <li>Catalina Medrano Galarza, MV, MSc, PhD</li>
+                                            <li>Aldemar Zúñiga López, Z, MSc</li>
+                                            <li>Jaime Cubides Cárdenas, MV, Esp.</li>
+                                            <li>Diana Rojas Morales, MV</li>
+                                            <li>Diego Ahumada Beltrán, MV</li>
+                                        </ul>
+
+                                        <p>Desarrollador de Software</p>
+                                        <ul>
+                                            <li>MagicMV SAS</li>
+                                            <li>Jose Villamil (Director)</li>
+                                            <li>William Torres (Desarrollador)</li>
+                                            
+                                        </ul>
+
+                                        <p>Citación sugerida</p>
+                                        <p>Agrosavia, Corporación Colombiana de Investigación Agropecuaria. 2022. Bienestar Animal, sistema de apoyo a la toma de decisiones en bienestar de ganado lechero del trópico alto colombiano. Bienestar Animal. Disponible en https://bienestaranimal.agrosavia.co</p>
+
+                                        <p>Palabras clave</p>
+                                        <p>Bienestar, Evaluación, Ganado bovino, Lechería, Trópico alto</p>
+
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger">Cerrar</button>
+                                        </div>
+                                        </div>
+                                      </div>
+                                </div>
+    
+                            <br>
+                            <img src="..." alt="Logo Agrosavia" class="w-100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="bg-dark text-white py-3 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8">
+                        <p>©2022 Agrosavia</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-right">Desarrollado por: magicmv.com</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
+    <!--<script src="https://kit.fontawesome.com/62ea397d3a.js" crossorigin="anonymous"></script>-->
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Bienestar Animal / Evalución para Ganadería">
+<meta name="author" content="MAGICMV, willigan">
+<title>Libertad 3 - Evaluación - Bienestar Animal</title>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+
+<!--Font Awesome-->
+<link rel="stylesheet" th:href="@{/css/font-awesome/all.min.css}">
+
+<!-- GOOGLE WEB FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Bienestar Animal</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link" th:href="@{/inicio-contenido}">Inicio</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/finca/listar}">Finca</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page">Evaluación</a></li>
+					<li class="nav-item"><a class="nav-link">Mi perfil</a></li>
+					<li class="nav-item"><a class="nav-link">Salir</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<header>
+		<div class="container">
+			<img src="..." alt="Imagen">
+			<h1 class="text-center mb-5">Evaluación libertades en terneras</h1>
+		</div>
+
+	</header>
+	<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-8 mx-auto">
+					<form th:action="@{/evaluacion/libertades-ternera/guardar}" th:object="${nuevo}" method="post">
+						<p>Libertad 1: libres de hambre y sed</p>
+						<hr>
+						<div class="row">
+							<div class="col-12">
+ 								<br> 
+								<input type="hidden" th:field="*{codEc}" th:value="*{codEc}"> 
+								
+								<label class="form-label"><span class="apuntes">[elv_q01] x7</span> ¿Cuál es la edad tienen	acceso a agua?</label>
+								 <select th:field="*{el1Q01}" name="" id="" class="form-select" required>
+									<option value="0" selected>Seleccionar...</option>
+									<option th:value="10">Desde que nacen tienen acceso a agua</option>
+									<option th:value="1">Una vez dejan de tomar leche</option>
+								</select>
+							</div>
+						</div>
+						<br>
+						<p>Libertad 2: libres de incomodidad y malestar</p>
+						<hr>
+						<div class="row">
+							<div class="col-12">
+							    <br> 
+								<label class="form-label"><span class="apuntes">[elv_q02] x7</span> ¿Ofrece sombra a sus terneras?</label>
+								<select th:field="*{el2Q01}" name="" id=""
+									class="form-select" required>
+									<option value="0" selected>Seleccionar...</option>
+									<option th:value="10">Si</option>
+									<option th:value="1">No</option>
+								</select> 
+								
+								<br> 
+							   <label class="form-label"><span class="apuntes">[elv_q03] x7</span> ¿Se asegura la toma de calostro?</label> 
+							   <select th:field="*{el2Q02}" name="" id=""
+									class="form-select" required>
+									<option value="" selected>Seleccionar...</option>
+									<option th:value="10">Durante las primeras 6 horas de vida del ternero</option>
+									<option th:value="4">No se verifica</option>
+								</select>
+							</div>
+						</div>
+						<br>
+						<p>Libertad 3: libres de dolor, lesiones y enfermedades</p>
+						<hr>
+						<div class="row">
+							<div class="col-12">
+							 <br> 
+								 <label class="form-label"><span class="apuntes">[elv_q04] x10</span> ¿Que método usa y a qué edad topiza o descorna a sus terneras? (entendiendo por
+									topizar el procedimiento que evita el crecimiento de los cuernos, y por descornar el procedimiento de remover los cuernos ya formados)?</label> 
+									<select th:field="*{el3Q01}"
+									name="" id="" class="form-select" required>
+									<option value="0" selected>Seleccionar...</option>
+									<option th:value="3">No topizo ni descorno</option>
+									<option th:value="5">Descorno con guaya (procedimiento de remover los cuernos) una vez ya se han formado los cachos, después de los 2 meses de vida</option>
+									<option th:value="1">Desbotone (remover la punta de los cachitos con una navaja o cuchillo) antes de los 2 meses de vida</option>
+									<option th:value="1">Pasta caustica (descornol), durante la primera semana de vida</option>
+									<option th:value="2">Pasta caustica (descornol) después de la primera semana de vida</option>
+									<option th:value="5">Hierro caliente, antes de los 2 meses de vida CON anestesia local y analgesia</option>
+									<option th:value="2">Hierro caliente, antes de los 2 meses de vida SIN anestesia local ni analgesia</option>
+									<option th:value="10">Hierro caliente, después de los 2 meses de vida CON anestesia local y analgesia</option>
+									<option th:value="10">Hierro caliente, después de los 2 meses de vida SIN anestesia local ni analgesia</option>
+
+								</select> <br> <label class="form-label"><span class="apuntes">[elv_q05] x5</span> ¿Utiliza tintura de yodo para el proceso de curación de ombligo?</label> <select
+									th:field="*{el3Q02}" name="" id="" class="form-select" required>
+									<option value="" selected>Seleccionar...</option>
+									<option th:value="10">Si</option>
+									<option th:value="2">No (uso de otra sustancia)</option>
+								</select> <br> <label class="form-label"><span class="apuntes">[elv_q06] x5</span> En caso de que se presenten miasis en el ombligo, ¿como se realiza el manejo de esta?</label>
+								<select th:field="*{el3Q03}" name="" id="" class="form-select" required>
+									<option value="0" selected>Seleccionar...</option>
+									<option th:value="10">Uso de antiinflamatorio e insecticida en la herida</option>
+									<option th:value="5">Uso sólo de insecticida</option>
+									<option th:value="1">No hay tratamiento</option>
+
+								</select>
+							</div>
+						</div>
+						<br>
+
+						<p>Libertad 4: libres de expresar comportamientos normales</p>
+						<hr>
+						<div class="row">
+							<div class="col-12">
+								<br> <label class="form-label"><span class="apuntes">[elv_q04] x10</span> ¿Cómo suministra la leche a sus terneras?</label> 
+								<select th:field="*{el4Q01}"
+									name="" id="" class="form-select" required>
+									<option value="0" selected>Seleccionar...</option>
+									<option th:value="1">Se restringe el amamantamiento a 4 horas o menos tiempo al día</option>
+									<option th:value="10">Se permite la toma de 4 litros o más de leche al día por animal durante el primer mes y medio de vida</option>
+								</select> 
+								<br> 
+								<label class="form-label"><span class="apuntes">[elv_q05] x5</span> ¿Crías y madres comparten en un mismo espacio durante el día?</label> 
+								<select
+									th:field="*{el4Q02}" name="" id="" class="form-select" required>
+									<option value="" selected>Seleccionar...</option>
+									<option th:value="10">Si</option>
+									<option th:value="1">No</option>
+								</select>
+								 <br> 
+								 <label class="form-label"><span class="apuntes">[elv_q06] x5</span> ¿Cuál es el método para evitar succión de pezones a vacas o entre terneras?</label>
+								<select th:field="*{el4Q03}" name="" id="" class="form-select" required>
+									<option value="0" selected>Seleccionar...</option>
+									<option th:value="8">Destetador</option>
+									<option th:value="4">Nariguera</option>
+									<option th:value="2">Encerramiento en corral</option>
+								</select>
+							</div>
+						</div>
+						
+						<br>
+
+						<p>Libertad 5: libres de miedo, estrés</p>
+						<hr>
+						<div class="row">
+							<div class="col-12">
+								<br> <label class="form-label"><span class="apuntes">[elv_q04] x10</span> ¿Cuál es la forma de aislamiento del ternero durante el ordeño?</label> 
+								<select th:field="*{el5Q01}"
+									name="" id="" class="form-select" required>
+									<option value="0" selected>Seleccionar...</option>
+									<option th:value="10">Aisladas con otras terneras con suplementación alimenticia</option>
+									<option th:value="4">Aisladas con otras terneras sin suplementación alimenticia</option>
+								    <option th:value="1">Amarrada a un poste al lado de la madre sin suplementación</option>
+									
+								</select> 
+								<br> 
+								<label class="form-label"><span class="apuntes">[elv_q05] x5</span> ¿Crías y madres comparten en un mismo espacio durante el día?</label> 
+								<select
+									th:field="*{el5Q02}" name="" id="" class="form-select" required>
+									<option value="" selected>Seleccionar...</option>
+									<option th:value="10">Si</option>
+									<option th:value="1">No</option>
+								</select>
+								 <br> 
+								 <label class="form-label"><span class="apuntes">[elv_q06] x5</span> ¿Cuál es el método para evitar succión de pezones a vacas o entre terneras?</label>
+								<select th:field="*{el5Q03}" name="" id="" class="form-select" required>
+									<option value="0" selected>Seleccionar...</option>
+									<option th:value="8">Destetador</option>
+									<option th:value="4">Nariguera</option>
+									<option th:value="2">Encerramiento en corral</option>
+								</select>
+							</div>
+						</div>
+						
+						 <br> 
+						 <br> 
+						
+						<button type="submit" class="btn btn-success">Siguiente: continuar con horros</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer class="bg-dark text-white py-3 mt-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-8">
+					<p>©2022 Agrosavia</p>
+				</div>
+				<div class="col-4">
+					<p class="text-right">Desarrollado por: magicmv.com</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+	<!--<script src="https://kit.fontawesome.com/62ea397d3a.js" crossorigin="anonymous"></script>-->
+</body>
+</html>

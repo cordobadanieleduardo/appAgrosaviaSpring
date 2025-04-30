@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bienestar Animal / Evalución para Ganadería">
+    <meta name="author" content="MAGICMV, willigan">
+    <title>Libertad 3 - Evaluación - Bienestar Animal</title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+	
+	<!--Font Awesome-->
+	<link rel="stylesheet" th:href="@{/css/font-awesome/all.min.css}">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Bienestar Animal</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/inicio-contenido}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/finca/listar}">Finca</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Evaluación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Mi perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Salir</a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header>
+            <div class="container">
+                <img src="..." alt="Imagen">
+                <h1 class="text-center mb-5">Evaluación libertad 4 en vacas en producción</h1>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col-8 mx-auto" >
+                        <p>Libertad 4 : libres de expresar comportamientos normales</p>
+                        <hr>
+                        <form th:action="@{/evaluacion/libertad4-vaca/guardar}" th:object="${nuevo}" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                
+                                	<input type="hidden" th:field="*{codEc}" th:value="*{codEc}">
+                                    <input type="hidden" th:field="*{codElvaca}" th:value="*{codElvaca}">
+                                	
+                                    <label class="form-label"><span class="apuntes">[elv_q01] x10</span> ¿Cuánto tiempo de espera en el patio preordeño o área preordeño?)?</label>
+                                    <select th:field="*{el4Q01}" name="" id="" class="form-select" required>
+                                        <option value="0" selected >Seleccionar...</option>
+                                        <option th:value="10">Mayor a 18 horas</option>
+                                        <option th:value="10">Menor a 18 horas</option>
+                                    </select>
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q02] x7</span> ¿Número de comportamientos agresivos (embestidas, topeteos, desplazamientos, persecusiones) que se presentan en 5 minutos de observación en la pradera?</label>
+                                    <select th:field="*{el4Q02}" name="" id="" class="form-select" required>
+                                        <option value="0" selected >Seleccionar...</option>
+                                        <option th:value="10">Ninguno</option>
+                                        <option th:value="6">Entre 1 a 3</option>
+                                        <option th:value="4">Entre 4 a 6</option>
+                                        <option th:value="1">Más de 6</option>
+                                    </select>
+                                
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q03] x7</span> ¿Número de comportamientos afiliativos (acicalar, roce con cabeza y cuello sin lastimar) que se presentan durante 5 minutos de observación en la pradera?</label>
+                                    <select th:field="*{el4Q03}" name="" id="" class="form-select" required>
+                                        <option value="0" selected >Seleccionar...</option>
+                                        <option th:value="10">Ninguno</option>
+                                        <option th:value="8">Entre 1 a 3</option>
+                                        <option th:value="6">Entre 4 a 6</option>
+                                        <option th:value="4">Más de 6</option>
+                                    </select>
+                  
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q04] x7</span> ¿Cuánto tiempo de espera en el patio preordeño o área preordeño?</label>
+                                    <select th:field="*{el4Q04}" name="" id="" class="form-select" required>
+                                        <option value="0" selected >Seleccionar...</option>
+                                        <option th:value="10">Ninguno</option>
+                                        <option th:value="8">Entre 1 a 3</option>
+                                        <option th:value="6">Entre 4 a 6</option>
+                                        <option th:value="4">Más de 6</option>
+                                    </select>
+                                 </div>       
+                            </div>
+                            <br>
+<!--                            <button class="btn btn-primary">Volver</button> -->
+<!--                             <a class="btn btn-primary" th:href="@{/evaluacion/listar}" >Evaluación</a> -->
+                           
+                            <button type="submit" class="btn btn-success">Siguiente: Libertad 5: libres de miedo y estrés</button>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+        </main>
+        <footer class="bg-dark text-white py-3 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8">
+                        <p>©2022 Agrosavia</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-right">Desarrollado por: magicmv.com</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!--<script src="https://kit.fontawesome.com/62ea397d3a.js" crossorigin="anonymous"></script>-->
+</body>
+</html>

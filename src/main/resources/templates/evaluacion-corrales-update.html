@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+	content="Bienestar Animal / Evalución para Ganadería">
+<meta name="author" content="MAGICMV, willigan">
+<title>Corrales - Evaluación - Bienestar Animal</title>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+
+<!--Font Awesome-->
+<link rel="stylesheet" th:href="@{/css/font-awesome/all.min.css}">
+
+<!-- GOOGLE WEB FONT -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap"
+	rel="stylesheet">
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Bienestar Animal</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/inicio-contenido}">Inicio</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/finca/listar}">Finca</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page">Evaluación</a></li>
+					<li class="nav-item"><a class="nav-link">Mi perfil</a></li>
+					<li class="nav-item"><a class="nav-link">Salir</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<header>
+		<div class="container">
+			<img src="..." alt="Imagen">
+			<h1 class="text-center mb-5">Evaluación</h1>
+		</div>
+
+	</header>
+	<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-8 mx-auto">
+					<p>CORRALES</p>
+					<hr>
+					<p>
+						Evaluaremos <span th:text="${corrales}"></span> corrales
+					</p>
+
+					<div th:switch="${mensaje}">
+						<h2 th:case="null">Agregar uno nuevo</h2>
+						<h4 th:case="*">Agregó una nueva evaluación!</h4>
+					</div>
+					
+					<div th:switch="${corrales}">
+						<h2 th:case="null">NO HAY MUESTRAS</h2>
+					</div>
+
+					<div class="row">
+						<form th:action="@{/evaluacion/corrales/update/{id}(id=${evco.id})}"
+							th:object=${evco} method="post">
+							<div class="col-12">
+								<div class="accordion" id="accordionSection">
+									<!-- <input type="hidden" th:field=${codFinca} th:value="${codFinca}">  -->
+<!-- 									<input type="hidden" th:field=*{codEc}    th:value="${codEc}"> -->
+<!--  									<input type="hidden" th:field=*{codEvAn}    th:value="${codEvAn}"> -->
+									<!-- Replicar -->
+	
+									<div class="accordion-item mb-3">
+										<h2 class="accordion-header">
+											<div class="row">
+												<div class="col-sm-6">
+													<button type="button"
+														class="accordion-button collapsed d-inline"
+														data-bs-toggle="collapse"
+														th:attr="data-bs-target='#collapse'+1">Corral</button>
+												</div>
+												<div class="col-sm-6 ">
+													<input type="text" th:field="*{evanIdentificador}"
+														th:text="${evanIdentificador}" placeholder="Identificador"
+														required class="form-control d-inline">
+												</div>
+											</div>
+										</h2>
+										<div class="accordion-collapse collapse show"
+											th:attr="id='collapse' + 1"
+											data-bs-parent="#accordionSection">
+											<div class="accordion-body">
+
+												<p>LIBERTAD 1: LIBRES DE HAMBRE Y SED</p>
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol1q01] x10</span>
+														Disponibilidad de bebederos
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q01}" th:name="${evco.id} + '1'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1"> 1
+																bebedero por cada 15 o menos animales adultos </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q01}" th:name="${evco.id} + '1'"
+																id="gridRadios2" value="7"> <label
+																class="form-check-label" for="gridRadios2"> 1
+																bebedero por cada 16 a 30 animales adultos </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q01}" th:name="${evco.id} + '1'"
+																id="gridRadios3" value="5"> <label
+																class="form-check-label" for="gridRadios3"> 1
+																bebedero por 31 o más animales </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q01}" th:name="${evco.id} + '1'"
+																id="gridRadios4" value="1"> <label
+																class="form-check-label" for="gridRadios4"> 0
+																bebederos </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol1q02] x7</span> Condición de
+														los bebederos
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q02}" th:name="${evco.id} + '2'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Buenos </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q02}" th:name="${evco.id} + '2'"
+																id="gridRadios2" value="5"> <label
+																class="form-check-label" for="gridRadios2">
+																Regulares </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q02}" th:name="${evco.id} + '2'"
+																id="gridRadios3" value="1"> <label
+																class="form-check-label" for="gridRadios3">
+																Malos </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol1q03] x7</span> Limpieza del
+														agua de bebederos
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q03}" th:name="${evco.id} + '3'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Limpios </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q03}" th:name="${evco.id} + '3'"
+																id="gridRadios2" value="5"> <label
+																class="form-check-label" for="gridRadios2">
+																Regulares </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q03}" th:name="${evco.id} + '3'"
+																id="gridRadios3" value="1"> <label
+																class="form-check-label" for="gridRadios3">
+																Sucios </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol1q04] x10</span>
+														Disponibilidad de agua (Chupos funcionando / bebederos con
+														suficiente agua)
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q04}" th:name="${evco.id} + '4'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Suficiente </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q04}" th:name="${evco.id} + '4'"
+																id="gridRadios2" value="1"> <label
+																class="form-check-label" for="gridRadios2">
+																Insuficiente </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol1q05] x?[10]</span>
+														Disponibilidad de comederos
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q05}" th:name="${evco.id} + '5'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1"> 1
+																comedero por cada 5 o menos animales adultos </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q05}" th:name="${evco.id} + '5'"
+																id="gridRadios2" value="7"> <label
+																class="form-check-label" for="gridRadios2"> 1
+																comedero por cada 6 a 15 animales adultos </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q05}" th:name="${evco.id} + '5'"
+																id="gridRadios3" value="5"> <label
+																class="form-check-label" for="gridRadios3"> 1
+																comedero o por 15 o más animales </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q05}" th:name="${evco.id} + '5'"
+																id="gridRadios4" value="1"> <label
+																class="form-check-label" for="gridRadios4"> 0
+																comederos </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol1q06] x7</span> Condición de
+														los comederos
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q06}" th:name="${evco.id} + '6'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Buenos </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q06}" th:name="${evco.id} + '6'"
+																id="gridRadios2" value="5"> <label
+																class="form-check-label" for="gridRadios2">
+																Regulares </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol1q06}" th:name="${evco.id} + '6'"
+																id="gridRadios3" value="1"> <label
+																class="form-check-label" for="gridRadios3">
+																Malos </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<p>LIBERTAD 2: LIBRES DE INCOMODIDADES Y MALESTAR</p>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol2q01] x10</span>
+														Encharcamiento en corral / pradera
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q01}" th:name="${evco.id} + '7'"
+																id="gridRadios1" value="1" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Presente </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q01}" th:name="${evco.id} + '7'"
+																id="gridRadios2" value="10"> <label
+																class="form-check-label" for="gridRadios2"> No
+																presente </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol2q02] x10</span>
+														Disponibilidad de sombra en corral / pradera
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q02}" th:name="${evco.id} + '8'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Disponible (natural o artificial) </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q02}" th:name="${evco.id} + '8'"
+																id="gridRadios2" value="1"> <label
+																class="form-check-label" for="gridRadios2"> No
+																disponible </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol2q03] x10</span> Densidad del
+														corral
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q03}" th:name="${evco.id} + '9'"
+																id="gridRadios1" value="7" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Confinamiento individual (al menos 1 metro cuadrado
+																hembras vacias, preñadas o corderos) </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q03}" th:name="${evco.id} + '9'"
+																id="gridRadios2" value="10"> <label
+																class="form-check-label" for="gridRadios2">
+																Confinamiento individual (más de 1,5 metros cuadrados
+																para hembras vacias, preñadas o corderos) </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q03}" th:name="${evco.id} + '9'"
+																id="gridRadios3" value="7"> <label
+																class="form-check-label" for="gridRadios3">
+																Confinamiento individual (al menos de 1 metros cuadrados
+																para hembras vacias, preñadas o corderos) </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q03}" th:name="${evco.id} + '9'"
+																id="gridRadios4" value="7"> <label
+																class="form-check-label" for="gridRadios4">
+																Confinamiento individual (al menos 1,5 metros cuadrados
+																por macho reproductor o hembra con cría) </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q03}" th:name="${evco.id} + '9'"
+																id="gridRadios5" value="10"> <label
+																class="form-check-label" for="gridRadios5">
+																Confinamiento individual (más de 2 metros cuadrados por
+																macho reproductor o hembra con cría) </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q03}" th:name="${evco.id} + '9'"
+																id="gridRadios6" value="1"> <label
+																class="form-check-label" for="gridRadios6">
+																Confinamiento individual menos de 1 metro cualquier
+																etapa </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q03}" th:name="${evco.id} + '9'"
+																id="gridRadios7" value="1"> <label
+																class="form-check-label" for="gridRadios7">
+																Confinamiento grupal (menos de 0,8 metros hasta 15
+																animales) </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q03}" th:name="${evco.id} + '9'"
+																id="gridRadios8" value="10"> <label
+																class="form-check-label" for="gridRadios8">
+																Confinamiento grupal (más de 1 metro hasta 15 animales)
+															</label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q03}" th:name="${evco.id} + '9'"
+																id="gridRadios9" value="5"> <label
+																class="form-check-label" for="gridRadios9">
+																Confinamiento grupal (menos de 0,6 metros desde 16
+																animales) </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q03}" th:name="${evco.id} + '9'"
+																id="gridRadios10" value="10"> <label
+																class="form-check-label" for="gridRadios10">
+																Confinamiento grupal (más de 0,8 metro desde 16
+																animales) </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol2q04] x7</span> Limpieza del
+														corral
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q04}" th:name="${evco.id} + '10'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Limpios </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q04}" th:name="${evco.id} + '10'"
+																id="gridRadios2" value="5"> <label
+																class="form-check-label" for="gridRadios2">
+																Regulares </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q04}" th:name="${evco.id} + '10'"
+																id="gridRadios3" value="1"> <label
+																class="form-check-label" for="gridRadios3">
+																Sucios </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol2q05] x10</span> Tipo de piso
+														del corral
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q05}" th:name="${evco.id} + '11'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1"> Cama
+															</label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q05}" th:name="${evco.id} + '11'"
+																id="gridRadios2" value="7"> <label
+																class="form-check-label" for="gridRadios2">
+																Tierra </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q05}" th:name="${evco.id} + '11'"
+																id="gridRadios3" value="2"> <label
+																class="form-check-label" for="gridRadios3">
+																Concreto </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol2q06] x10</span> Cantidad de
+														la cama
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q06}" th:name="${evco.id} + '12'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Suficiente </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q06}" th:name="${evco.id} + '12'"
+																id="gridRadios2" value="1"> <label
+																class="form-check-label" for="gridRadios2">
+																Insuficiente </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol2q07] x7</span> Luz en corral
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q07}" th:name="${evco.id} + '13'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Suficiente </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q07}" th:name="${evco.id} + '13'"
+																id="gridRadios2" value="1"> <label
+																class="form-check-label" for="gridRadios2">
+																Insuficiente </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol2q08] x7</span> Ventilación
+														del corral
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q08}" th:name="${evco.id} + '14'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Suficiente </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q08}" th:name="${evco.id} + '14'"
+																id="gridRadios2" value="1"> <label
+																class="form-check-label" for="gridRadios2">
+																Insuficiente </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol2q09] x5</span> Animales con
+														presencia / molestias de moscas o mosquitos
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q09}" th:name="${evco.id} + '15'"
+																id="gridRadios1" value="7" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Presentes </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol2q09}" th:name="${evco.id} + '15'"
+																id="gridRadios2" value="1"> <label
+																class="form-check-label" for="gridRadios2"> No
+																presentes </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<p>LIBERTAD 4: LIBRES DE EXPRESAR COMPORTAMIENTOS
+													NORMALES</p>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol4q01] x7</span> Animales con
+														restricción de movilidad o elementos en el cuello
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol4q01}" th:name="${evco.id} + '16'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Ninguno o un animal con restricción justificada </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol4q01}" th:name="${evco.id} + '16'"
+																id="gridRadios2" value="5"> <label
+																class="form-check-label" for="gridRadios2"> 2 o
+																más animales restringidos </label> Evaluaremos 2 corrales
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol4q02] x10</span> Aislamiento
+														social
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol4q02}" th:name="${evco.id} + '17'"
+																id="gridRadios1" value="1" checked> <label
+																class="form-check-label" for="gridRadios1"> Si
+																algún animal del corral / grupo </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol4q02}" th:name="${evco.id} + '17'"
+																id="gridRadios2" value="10"> <label
+																class="form-check-label" for="gridRadios2"> No
+																aislan ningún animal </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<p>LIBERTAD 5: LIBRES DE MIEDO Y ESTRÉS</p>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol5q01] x10</span> Interración
+														humano- animal
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol5q01}" th:name="${evco.id} + '18'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Indiferentes a la entrada del productor </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol5q01}" th:name="${evco.id} + '18'"
+																id="gridRadios2" value="8"> <label
+																class="form-check-label" for="gridRadios2">
+																Tranquilos pero observan al productor </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol5q01}" th:name="${evco.id} + '18'"
+																id="gridRadios3" value="5"> <label
+																class="form-check-label" for="gridRadios3"> Se
+																esconden unas con otras </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol5q01}" th:name="${evco.id} + '18'"
+																id="gridRadios4" value="1"> <label
+																class="form-check-label" for="gridRadios4"> Se
+																tratan de escapar energicamente </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<hr>
+
+												<fieldset class="row mb-3">
+													<legend class="col-form-label col-sm-12 pt-0">
+														<span class="apuntes">[evcol5q02] x10</span> Tiempo de
+														acercamiento al pastor
+													</legend>
+													<div class="col-sm-12">
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol5q02}" th:name="${evco.id} + '19'"
+																id="gridRadios1" value="10" checked> <label
+																class="form-check-label" for="gridRadios1">
+																Menos de 2 minutos </label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio"
+																th:field="*{evcol5q02}" th:name="${evco.id} + '19'"
+																id="gridRadios2" value="5"> <label
+																class="form-check-label" for="gridRadios2"> Más
+																de 2 minutos </label>
+														</div>
+													</div>
+												</fieldset>
+
+												<button class="btn btn-success" type="submit">Actualizar</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<br>
+					<!-- <button class="btn btn-primary">Volver</button> -->
+					<!-- <button class="btn btn-success">Siguiente: Libertad 1:
+						libres de hambre y sed</button>  -->
+					<!-- <a th:href="@{/inicio-contenido}" class="btn btn-primary">Cancelar</a> -->
+					<a th:href="@{'/evaluacion/animales/list/'+${evco.codEc}+'/'+${codFinca}}" class="btn btn-success">FINALIZAR
+						EVALUACIÓN</a>
+
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer class="bg-dark text-white py-3 mt-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-8">
+					<p>©2022 Agrosavia</p>
+				</div>
+				<div class="col-4">
+					<p class="text-right">Desarrollado por: magicmv.com</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+	<!--<script src="https://kit.fontawesome.com/62ea397d3a.js" crossorigin="anonymous"></script>-->
+</body>
+</html>

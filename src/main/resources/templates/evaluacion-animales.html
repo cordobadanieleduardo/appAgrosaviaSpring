@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+	content="Bienestar Animal / Evalución para Ganadería">
+<meta name="author" content="MAGICMV, willigan">
+<title>Animales - Evaluación - Bienestar Animal</title>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+
+<!--Font Awesome-->
+<link rel="stylesheet" th:href="@{/css/font-awesome/all.min.css}">
+
+<!-- GOOGLE WEB FONT -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap"
+	rel="stylesheet">
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Bienestar Animal</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/inicio-contenido}">Inicio</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/finca/listar}">Finca</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" th:href="@{/evaluacion/listar}">Evaluación</a></li>
+					<li class="nav-item"><a class="nav-link">Mi perfil</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/logout}">Salir</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<header>
+		<div class="container">
+			<img src="..." alt="Imagen">
+			<h1 class="text-center mb-5">Evaluación</h1>
+		</div>
+
+	</header>
+	<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-8 mx-auto">
+					<p>ANIMALES</p>
+					<hr>
+					<p>
+						Por favor aliste <span th:text="${numeroAnimales}"></span> ovinos
+						para la evaluación de muestra
+					</p>
+
+					<div class="row">
+						<div class="col-12">
+							<div class="accordion" id="accordionSection">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th scope="col">Cod</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="obj, consec:${evanlist}" th:object=${evan}>
+											<td>
+												<form th:action="@{/evaluacion/animales/guardar}"
+													th:object=${evan} method="post">
+
+													<input type="hidden" th:id="'codEvAn'+${consec.index}"
+														th:field="*{codEvAn}" th:name="'codEvAn'+ ${obj.codEvAn}">
+
+													<input type="hidden" th:id="'codEc'+${consec.index}"
+														th:field="*{codEc}" th:name="'codEc'+ ${obj.codEc}">
+
+													<input type="hidden" th:id="'codFinca'+${consec.index}"
+														th:field="*{codFinca}"
+														th:name="'codFinca'+ ${obj.codFinca}">
+
+
+													<div class="accordion-item mb-3">
+														<h2 class="accordion-header">
+															<div class="row">
+																<div class="col-sm-6">
+																	<button type="button"
+																		class="accordion-button collapsed d-inline"
+																		data-bs-toggle="collapse"
+																		th:attr="data-bs-target='#collapse' + ${consec.index}">
+																		Animal <span th:text="${consec.index} + 1"></span>
+																	</button>
+																</div>
+																<div class="col-sm-6 ">
+																	<input type="text" th:field="*{evanIdentificador}"
+																		th:id="'evanIdentificador'+${consec.index}"
+																		th:value="${obj.evanIdentificador}"
+																		th:name="'evanIdentificador' + ${consec.index}"
+																		class="form-control d-inline" required>
+																</div>
+														</h2>
+														<div class="accordion-collapse collapse"
+															th:attr="id='collapse' + ${consec.index}"
+															data-bs-parent="#accordionSection">
+															<div class="accordion-body">
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl1q01] x10</span> ¿Cuál es
+																		la condición corporal?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl1q01}" th:name="*{evanl1q01} + '1'"
+																				th:id="${consec.index}+'evanl1q01gridRadios1'"
+																				value="1" checked> <label
+																				class="form-check-label"
+																				th:for="${consec.index}+'evanl1q01gridRadios1'">
+																				1 o 2 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl1q01}" th:name="${evanl1q01} + '1'"
+																				th:id="${consec.index}+'evanl1q01gridRadios2'"
+																				value="10"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl1q01gridRadios2'">
+																				3 o 4 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl1q01}" th:name="${evanl1q01} + '1'"
+																				th:id="${consec.index}+'evanl1q01gridRadios3'"
+																				value="5"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl1q01gridRadios3'">
+																				5 </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q01] x7</span> ¿Cuál es
+																		el FAMACHA del ovino?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q01}"
+																				th:name="${obj.codEvAn} + '4'"
+																				th:id="${consec.index}+'evanl3q01gridRadios1'"
+																				value="10" checked> <label
+																				class="form-check-label"
+																				for="${consec.index}+'evanl3q01gridRadios1'">
+																				1 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q01}"
+																				th:name="${obj.codEvAn} + '4'"
+																				th:id="${consec.index}+'evanl3q01gridRadios2'"
+																				value="10"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q01gridRadios2'">
+																				2 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q01}"
+																				th:name="${obj.codEvAn} + '4'"
+																				th:id="${consec.index}+'evanl3q01gridRadios3'"
+																				value="7"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q01gridRadios3'">
+																				3 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q01}"
+																				th:name="${obj.codEvAn} + '4'"
+																				th:id="${consec.index}+'evanl3q01gridRadios4'"
+																				value="1"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q01gridRadios4'">
+																				4 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q01}"
+																				th:name="${obj.codEvAn} + '4'"
+																				th:id="${consec.index}+'evanl3q01gridRadios5'"
+																				value="1"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q01gridRadios5'">
+																				5 </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q06] x7</span> ¿Cuál es
+																		el grado de suciedad del tren posterior (dag score)?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q06}"
+																				th:name="${obj.codEvAn} + '9'"
+																				th:id="${consec.index}+'evanl3q06gridRadios1'"
+																				value="10" checked> <label
+																				class="form-check-label"
+																				th:for="${consec.index}+'evanl3q06gridRadios1'">
+																				1 o 2 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q06}"
+																				th:name="${obj.codEvAn} + '9'"
+																				th:id="${consec.index}+'evanl3q06gridRadios2'"
+																				value="5"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q06gridRadios2'">
+																				3 o 4 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q06}"
+																				th:name="${obj.codEvAn} + '9'"
+																				th:id="${consec.index}+'evanl3q06gridRadios3'"
+																				value="1"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q06gridRadios3'">
+																				5 </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q07] x10</span> ¿Cómo se
+																		encuentra la cola del animal? (descole)
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q07}"
+																				th:name="${obj.codEvAn} + '10'"
+																				th:id="${consec.index}+'evanl3q07gridRadios1'"
+																				value="10" checked> <label
+																				class="form-check-label"
+																				th:for="${consec.index}+'gridRadios1'"> Con
+																				cola </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q07}"
+																				th:name="${obj.codEvAn} + '10'"
+																				th:id="${consec.index}+'evanl3q07gridRadios2'"
+																				value="7"> <label class="form-check-label"
+																				th:for="${consec.index}+'gridRadios2'">
+																				Descole largo </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q07}"
+																				th:name="${obj.codEvAn} + '10'"
+																				th:id="${consec.index}+'evanl3q07gridRadios3'"
+																				value="2"> <label class="form-check-label"
+																				th:for="${consec.index}+'gridRadios3'">
+																				Descole corto </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q04] x7</span> ¿Cuál es
+																		la suciedad del pelaje?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q04}"
+																				th:name="${obj.codEvAn} + '7'"
+																				th:id="${consec.index}+'evanl3q04gridRadios1'"
+																				value="1" checked> <label
+																				class="form-check-label"
+																				th:for="${consec.index}+'evanl3q04gridRadios1'">
+																				Sucio </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q04}"
+																				th:name="${obj.codEvAn} + '7'"
+																				th:id="${consec.index}+'evanl3q04gridRadios2'"
+																				value="5"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q04gridRadios2'">
+																				Regular </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q04}"
+																				th:name="${obj.codEvAn} + '7'"
+																				th:id="${consec.index}+'evanl3q04gridRadios3'"
+																				value="10"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q04gridRadios3'">
+																				Limpio </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q02] x7</span> ¿Tiene
+																		secreción nasal y/o ocular?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q02}"
+																				th:name="${obj.codEvAn} + '5'"
+																				th:id="${consec.index}+'evanl3q02gridRadios1'"
+																				value="1" checked> <label
+																				class="form-check-label"
+																				th:for="${consec.index}+'evanl3q02gridRadios1'">
+																				Presente </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q02}"
+																				th:name="${obj.codEvAn} + '5'"
+																				th:id="${consec.index}+'evanl3q02gridRadios2'"
+																				value="10"> <label class="form-check-label"
+																				th:for="evanl3q02gridRadios2"> No presente </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q08] x5</span> ¿El animal
+																		presenta mastitis clinica?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q08}"
+																				th:name="${obj.codEvAn} + '11'"
+																				th:id="${consec.index}+'evanl3q08gridRadios1'"
+																				value="10" checked> <label
+																				class="form-check-label"
+																				th:for="${consec.index}+'evanl3q08gridRadios1'">
+																				No aplica, es macho </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q08}"
+																				th:name="${obj.codEvAn} + '11'"
+																				th:id="${consec.index}+'evanl3q08gridRadios2'"
+																				value="1"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q08gridRadios2'">
+																				Presente </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q08}"
+																				th:name="${obj.codEvAn} + '11'"
+																				th:id="${consec.index}+'evanl3q08gridRadios3'"
+																				value="10"> <label class="form-check-label"
+																				th:for="evanl3q08gridRadios3"> No presente </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q11] x10</span> ¿El
+																		animal tiene sobrecrecimiento en dos o más miembros?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q11}" name="${obj.codEvAn} + '14'"
+																				th:id="${consec.index}+'evanl3q11gridRadios1'"
+																				value="1" checked> <label
+																				class="form-check-label"
+																				for="${consec.index}+'evanl3q11gridRadios1'">
+																				Presente </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q11}" name="${obj.codEvAn} + '14'"
+																				th:id="${consec.index}+'evanl3q11gridRadios2'"
+																				value="10"> <label class="form-check-label"
+																				th:for="evanl3q11gridRadios2"> No presente </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q09] x10</span> ¿El
+																		animal presenta cojera?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q09}"
+																				th:name="${obj.codEvAn} + '12'"
+																				th:id="${consec.index}+'evanl3q09gridRadios1'"
+																				value="10" checked> <label
+																				class="form-check-label" th:for="gridRadios1">
+																				No presente </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q09}"
+																				th:name="${obj.codEvAn} + '12'"
+																				th:id="${consec.index}+'evanl3q09gridRadios2'"
+																				value="5"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q09gridRadios2'">
+																				Leve </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q09}"
+																				th:name="${obj.codEvAn} + '12'"
+																				th:id="${consec.index}+'evanl3q09gridRadios3'"
+																				value="1"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q09gridRadios3'">
+																				Severa </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q10] x10</span> ¿El
+																		animal presenta footrot en dos o más miembros?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q10}"
+																				th:name="${obj.codEvAn} + '13'"
+																				th:id="${consec.index}+'evanl3q10gridRadios1'"
+																				value="10" checked> <label
+																				class="form-check-label"
+																				th:for="${consec.index}+'evanl3q10gridRadios1'">
+																				0 a 1 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q10}"
+																				th:name="${obj.codEvAn} + '13'"
+																				th:id="${consec.index}+'evanl3q10gridRadios2'"
+																				value="5"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q10gridRadios2'">
+																				2 a 3 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q10}"
+																				th:name="${obj.codEvAn} + '13'"
+																				th:id="${consec.index}+'evanl3q10gridRadios3'"
+																				value="1"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q10gridRadios3'">
+																				4 </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q05] x7</span> ¿Tiene
+																		lesiones o heridas en el cuerpo incluyendo las orejas?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q05}"
+																				th:name="${obj.codEvAn} + '8'"
+																				th:id="${consec.index}+'evanl3q05gridRadios1'"
+																				value="1" checked> <label
+																				class="form-check-label"
+																				th:for="${consec.index}+'evanl3q05gridRadios1'">
+																				Presente </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q05}"
+																				th:name="${obj.codEvAn} + '8'"
+																				th:id="${consec.index}+'evanl3q05gridRadios2'"
+																				value="10"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q05gridRadios2'">
+																				No presente </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl1q02] x10</span> ¿Cuál es
+																		la condición corporal de la hembra en periparto?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl1q02}" name="${obj.codEvAn} + '2'"
+																				th:id="${consec.index}+'evanl1q02gridRadios1'"
+																				value="5" checked> <label
+																				class="form-check-label"
+																				th:for="${consec.index}+'evanl1q02gridRadios1'">
+																				1 o 2 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl1q02}" name="${obj.codEvAn} + '2'"
+																				th:id="${consec.index}+'evanl1q02gridRadios2'"
+																				value="10"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl1q02gridRadios2'">
+																				3 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl1q02}" name="${obj.codEvAn} + '2'"
+																				th:id="${consec.index}+'evanl1q02gridRadios3'"
+																				value="7"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl1q02gridRadios3'">
+																				4 </label>
+																		</div>
+																		<div class="form-check form-check-inline">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl1q02}" name="${obj.codEvAn} + '2'"
+																				th:id="${consec.index}+'evanl1q02gridRadios4'"
+																				value="1"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl1q02gridRadios4'">
+																				5 </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl2q01] x8</span> ¿El animal
+																		presenta estrés termico?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl2q01}" name="${obj.codEvAn} + '3'"
+																				th:id="${consec.index}+'evanl2q01gridRadios1'"
+																				value="1" checked> <label
+																				class="form-check-label"
+																				th:for="${consec.index}+'evanl2q01gridRadios1'">
+																				Temperatura menor a 37,5 o superior a 41,5 Cº </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl2q01}" name="${obj.codEvAn} + '3'"
+																				th:id="${consec.index}+'evanl2q01gridRadios2'"
+																				value="5"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl2q01gridRadios2'">
+																				Temperatura entre 40 a 41 Cº </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl2q01}" name="${obj.codEvAn} + '3'"
+																				th:id="${consec.index}+'evanl2q01gridRadios3'"
+																				value="10"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl2q01gridRadios3'">
+																				Temperatura entre 38 a 40 Cº </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl3q03] x5</span> ¿Tiene
+																		signos respiratorios? (tos o disnea)
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q03}" name="${obj.codEvAn} + '6'"
+																				th:id="${consec.index}+'evanl3q03gridRadios1'"
+																				value="1" checked> <label
+																				class="form-check-label"
+																				th:for="${consec.index}+'evanl3q03gridRadios1'">
+																				Presente </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl3q03}" name="${obj.codEvAn} + '6'"
+																				th:id="${consec.index}+'evanl3q03gridRadios2'"
+																				value="10"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl3q03gridRadios2'">
+																				No presente </label>
+																		</div>
+																	</div>
+																</fieldset>
+
+																<hr>
+
+																<fieldset class="row mb-3">
+																	<legend class="col-form-label col-sm-12 pt-0">
+																		<span class="apuntes">[evanl5q01] x5</span> ¿Cuál es
+																		el temperamento del animal a la manipulación?
+																	</legend>
+																	<div class="col-sm-12">
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl5q01}" name="${obj.codEvAn} + '15'"
+																				th:id="${consec.index}+'evanl5q01gridRadios1'"
+																				value="10" checked> <label
+																				class="form-check-label"
+																				th:for="${consec.index}+'evanl5q01gridRadios1'">
+																				Alerta </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl5q01}" name="${obj.codEvAn} + '15'"
+																				th:id="${consec.index}+'evanl5q01gridRadios2'"
+																				value="8"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl5q01gridRadios2'">
+																				Incomodo "bala" </label>
+																		</div>
+																		<div class="form-check">
+																			<input class="form-check-input" type="radio"
+																				th:field="*{evanl5q01}" name="${obj.codEvAn} + '15'"
+																				th:id="${consec.index}+'evanl5q01gridRadios3'"
+																				value="1"> <label class="form-check-label"
+																				th:for="${consec.index}+'evanl5q01gridRadios3'">
+																				Decaído </label>
+																		</div>
+																	</div>
+																</fieldset>
+																<button type="submit" class="btn btn-success">Guardar</button>
+															</div>
+														</div>
+													</div>
+												</form>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<br>
+
+					
+						<a th:href="@{'/evaluacion/corrales/nuevo/'+${codEc}}"
+							class="btn btn-success">Siguiente: Corrales animal</a>
+						<!-- <a
+						th:href="@{'/evaluacion/animales/list/'+${codFinca}+'/'+${codEc}}"
+						class="btn btn-success">Lista de animales</a> -->
+						<!-- 						<a -->
+						<!-- 							th:href="@{'/evaluacion/animales/list/'+${codFinca}+'/'+${codEc}}" -->
+						<!-- 							class="btn btn-primary">Cancelar</a> -->
+					
+
+					<!--<button class="btn btn-primary">Volver</button>
+                            <button class="btn btn-success">Siguiente: Libertad 1: libres de hambre y sed</button>-->
+					<!--<a th:href="@{/inicio-contenido}" class="btn btn-primary">Cancelar</a>
+                            <a th:href="@{/evaluacion-corrales}" class="btn btn-success">Siguiente: CORRALES</a>-->
+
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer class="bg-dark text-white py-3 mt-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-8">
+					<p>©2022 Agrosavia</p>
+				</div>
+				<div class="col-4">
+					<p class="text-right">Desarrollado por: magicmv.com</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+	<!-- 	<script type="text/javascript" src="@{/js/animalesJ.js}"></script>
+ -->
+
+	<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		var list = /*[[${evanlist}]]*/null;
+		for (i = 0; i < list.length; i++) {
+			document.getElementById('codEvAn' + i).value = list[i].codEvAn;
+			document.getElementById('evanIdentificador' + i).value = list[i].evanIdentificador;
+			document.getElementById('codEc' + i).value = list[i].codEc;
+			document.getElementById('codFinca' + i).value = list[i].codFinca;
+			//$("#_1234").prop("checked", true);
+			// 			document.getElementById("_1234").checked = true;
+			if (list[i].evanl1q01 == "1") {
+				document.getElementById(i + 'evanl1q01gridRadios1').checked = true;
+			} else if (list[i].evanl1q01 == "10") {
+				document.getElementById(i + 'evanl1q01gridRadios2').checked = true;
+			} else if (list[i].evanl1q01 == "5") {
+				document.getElementById(i + 'evanl1q01gridRadios3').checked = true;
+			}
+			// 			evanl3q01
+			if (list[i].evanl3q01 == "10") {
+				document.getElementById(i + 'evanl3q01gridRadios1').checked = true;
+			} else if (list[i].evanl3q01 == "10") {
+				document.getElementById(i + 'evanl3q01gridRadios2').checked = true;
+			} else if (list[i].evanl3q01 == "7") {
+				document.getElementById(i + 'evanl3q01gridRadios3').checked = true;
+			} else if (list[i].evanl3q01 == "1") {
+				document.getElementById(i + 'evanl3q01gridRadios4').checked = true;
+			} else if (list[i].evanl3q01 == "1") {
+				document.getElementById(i + 'evanl3q01gridRadios5').checked = true;
+			}
+			// 			evanl3q06
+			if (list[i].evanl3q06 == "10") {
+				document.getElementById(i + 'evanl3q06gridRadios1').checked = true;
+			} else if (list[i].evanl3q06 == "5") {
+				document.getElementById(i + 'evanl3q06gridRadios2').checked = true;
+			} else if (list[i].evanl3q06 == "1") {
+				document.getElementById(i + 'evanl3q06gridRadios3').checked = true;
+			}
+			// 			evanl3q07
+			if (list[i].evanl3q07 == "10") {
+				document.getElementById(i + 'evanl3q07gridRadios1').checked = true;
+			} else if (list[i].evanl3q07 == "7") {
+				document.getElementById(i + 'evanl3q07gridRadios2').checked = true;
+			} else if (list[i].evanl3q07 == "2") {
+				document.getElementById(i + 'evanl3q07gridRadios3').checked = true;
+			}
+			// 			evanl3q04
+			if (list[i].evanl3q04 == "1") {
+				document.getElementById(i + 'evanl3q04gridRadios1').checked = true;
+			} else if (list[i].evanl3q04 == "5") {
+				document.getElementById(i + 'evanl3q04gridRadios2').checked = true;
+			} else if (list[i].evanl3q04 == "10") {
+				document.getElementById(i + 'evanl3q04gridRadios3').checked = true;
+			}
+			// 			evanl3q02
+			if (list[i].evanl3q02 == "1") {
+				document.getElementById(i + 'evanl3q02gridRadios1').checked = true;
+			} else if (list[i].evanl3q02 == "10") {
+				document.getElementById(i + 'evanl3q02gridRadios2').checked = true;
+			}
+			// 			evanl3q08
+			if (list[i].evanl3q08 == "10") {
+				document.getElementById(i + 'evanl3q08gridRadios1').checked = true;
+			} else if (list[i].evanl3q08 == "1") {
+				document.getElementById(i + 'evanl3q08gridRadios2').checked = true;
+			} else if (list[i].evanl3q08 == "10") {
+				document.getElementById(i + 'evanl3q08gridRadios3').checked = true;
+			}
+			// 			evanl3q11
+			if (list[i].evanl3q11 == "1") {
+				document.getElementById(i + 'evanl3q11gridRadios1').checked = true;
+			} else if (list[i].evanl3q11 == "10") {
+				document.getElementById(i + 'evanl3q11gridRadios2').checked = true;
+			}
+			// 			evanl3q09
+			if (list[i].evanl3q09 == "10") {
+				document.getElementById(i + 'evanl3q09gridRadios1').checked = true;
+			} else if (list[i].evanl3q09 == "5") {
+				document.getElementById(i + 'evanl3q09gridRadios2').checked = true;
+			} else if (list[i].evanl3q09 == "1") {
+				document.getElementById(i + 'evanl3q09gridRadios3').checked = true;
+			}
+			// 			evanl3q10
+			if (list[i].evanl3q10 == "10") {
+				document.getElementById(i + 'evanl3q10gridRadios1').checked = true;
+			} else if (list[i].evanl3q10 == "5") {
+				document.getElementById(i + 'evanl3q10gridRadios2').checked = true;
+			} else if (list[i].evanl3q10 == "1") {
+				document.getElementById(i + 'evanl3q10gridRadios3').checked = true;
+			}
+			// 			evanl3q05
+			if (list[i].evanl3q05 == "1") {
+				document.getElementById(i + 'evanl3q05gridRadios1').checked = true;
+			} else if (list[i].evanl3q05 == "10") {
+				document.getElementById(i + 'evanl3q05gridRadios2').checked = true;
+			}
+			// 			evanl1q02
+			if (list[i].evanl1q02 == "5") {
+				document.getElementById(i + 'evanl1q02gridRadios1').checked = true;
+			} else if (list[i].evanl1q02 == "10") {
+				document.getElementById(i + 'evanl1q02gridRadios2').checked = true;
+			} else if (list[i].evanl1q02 == "7") {
+				document.getElementById(i + 'evanl1q02gridRadios3').checked = true;
+			} else if (list[i].evanl1q02 == "1") {
+				document.getElementById(i + 'evanl1q02gridRadios3').checked = true;
+			}
+			// 			evanl2q01
+			if (list[i].evanl2q01 == "1") {
+				document.getElementById(i + 'evanl2q01gridRadios1').checked = true;
+			} else if (list[i].evanl2q01 == "5") {
+				document.getElementById(i + 'evanl2q01gridRadios2').checked = true;
+			} else if (list[i].evanl2q01 == "10") {
+				document.getElementById(i + 'evanl2q01gridRadios3').checked = true;
+			}
+			// 			evanl3q03
+			if (list[i].evanl3q03 == "1") {
+				document.getElementById(i + 'evanl3q03gridRadios1').checked = true;
+			} else if (list[i].evanl3q03 == "10") {
+				document.getElementById(i + 'evanl3q03gridRadios2').checked = true;
+			}
+			// 			evanl5q01
+			if (list[i].evanl5q01 == "10") {
+				document.getElementById(i + 'evanl5q01gridRadios1').checked = true;
+			} else if (list[i].evanl5q01 == "8") {
+				document.getElementById(i + 'evanl5q01gridRadios2').checked = true;
+			} else if (list[i].evanl5q01 == "1") {
+				document.getElementById(i + 'evanl5q01gridRadios3').checked = true;
+			}
+		}
+		/*]]>*/
+	</script>
+
+	<!--<script src="https://kit.fontawesome.com/62ea397d3a.js" crossorigin="anonymous"></script>-->
+</body>
+</html>

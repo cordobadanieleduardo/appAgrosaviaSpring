@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bienestar Animal / Evalución para Ganadería">
+    <meta name="author" content="MAGICMV">
+    <title>Caracterización - Evaluación - Bienestar Animal</title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+	<!--Font Awesome-->
+	<link rel="stylesheet" th:href="@{/css/font-awesome/all.min.css}">
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+</head>
+<body onload="showHour()">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Bienestar Animal</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/inicio-contenido}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/finca/listar}">Finca</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Evaluación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Mi perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Salir</a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header>
+            <div class="container">
+                <img src="..." alt="Imagen">
+                <h1 class="text-center mb-5">Evaluación en vaca</h1>
+            </div>
+        </header>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col-8 mx-auto" >
+                        <p>CARACTERIZACIÓN</p>
+                        <hr>
+                        <form th:action="@{/evaluacion/guardar}" th:object="${evaluacionNuevo}" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                           
+                                	<br>
+                                    <label for="hora" class="form-label"><span class="apuntes">[ec_hora]</span> Hora Inicio*</label>
+                                    <input type="text" th:field="*{ecHora}" class="form-control" id="hora" required>
+                                    
+                                    <br>
+                                    <label for="fecha" class="form-label"><span class="apuntes">[ec_fecha]</span> Fecha de la visita*</label>
+                                    <input type=text th:field="*{ecFecha}" class="form-control" id="fecha" required>
+                                   
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_finca]</span> Nombre de la finca</label>
+                                    <select th:field="*{ecFinca}" name="" id="selectFinca" class="form-select" required onchange="completarFinca()">
+                                    	<option value="" disabled>Seleccione la finca</option>
+                                    	<option th:each="f: ${fincas}" th:text="${f.nombreFinca}" th:value="${f.nombreFinca}"></option>
+                                    </select>
+                                   
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_observador]</span> Observador que realiza la evaluación</label>
+                                    <input type="text" th:field="*{ecObservador}" class="form-control" required>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_encuestado]</span> Nombre del encuestado</label>
+                                    <input type="text" th:field="*{ecEncuestado}" class="form-control" required>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q01]</span> ¿Quién maneja la finca?</label>
+                                    <select th:field="*{ecQ01}" name="" id="" class="form-select" required>
+                                        <option value="" selected>Seleccionar...</option>
+                                        <option th:value="'Carne / leche para autoconsumo'">Propietario</option>
+                                        <option th:value="'Entrada económica adicional'">Encargado</option>
+                                    </select>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q02]</span> ¿Cuál es  la raza predominante en el predio?</label>
+                                    <input type="text" th:field="*{ecQ02}" class="form-control" required>
+									<span class="validity"></span>
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q03]</span> ¿Cuántas vacas en producción?</label>
+                                    <input type="number" th:field="*{ecQ03}" class="sumAnimales form-control" id="hembrasVacias" min="1" onkeyup="sumar();" required>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q04]</span> ¿Cuántos animales en novillos o novillas?</label>
+                                    <input type="number" th:field="*{ecQ04}" class="sumAnimales form-control" id="hembrasGestantes" min="0" onkeyup="sumar();" required>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q05]</span> ¿Cuántos animales en terneros o terneras?</label>
+                                    <input type="number" th:field="*{ecQ05}" class="sumAnimales form-control" id="hembrasLactantes" min="0" onkeyup="sumar();" required>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q06]</span> ¿Cuántos animales en horros?</label>
+                                    <input type="number" th:field="*{ecQ06}" class="sumAnimales form-control" id="corderosMenores" min="0" onkeyup="sumar();" required>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q07]</span> ¿Cuántos animales en toros? </label>
+                                    <input type="number" th:field="*{ecQ07}" class="sumAnimales form-control" id="corderosMayores" min="0" onkeyup="sumar();" required>
+
+<!--                                     <br> -->
+<!--                                     <label class="form-label"><span class="apuntes">[ec_q08]</span> ¿Cuántos machos reproductores tiene? </label> -->
+<!--                                     <input type="number" th:field="*{ecQ08}" class="sumAnimales form-control" id="machosReproductores" min="0" onkeyup="sumar();" required> -->
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q09]</span> ¿Cuántos animales tiene? </label>
+                                    <input type="number" th:field="*{ecQ09}" class="form-control" id="sumaAnimales" required readonly>
+                                    <label class="form-label">[ec_muestra] Animales para la muestra: </label>
+                                    <input type="number" th:field="*{ecMuestra}" class="form-control" id="Muestra" required readonly>
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q10]</span> ¿Cuál es el tipo de ordeño de la finca?</label>
+									<select th:field="*{ecQ10}" name="" id="" class="form-select" required> 
+                                        <option value="" selected>Seleccionar...</option> 
+                                         <option th:value="'Manual en corral'">Manual en corral</option> 
+                                         <option th:value="'Manual en potrero'">Manual en potrero</option> 
+                                         <option th:value="'Mecánico fijo'">Mecánico fijo</option> 
+                                         <option th:value="'Mecánico en potrero'">Mecánico en potrero</option>
+                                     </select>                                    
+									<br>
+                                    <label class="form-label"><span class="apuntes">[ec_q11]</span> ¿Cuál es el género de los ordeñadores?</label>
+									<select th:field="*{ecQ11}" name="" id="" class="form-select" required> 
+                                        <option value="" selected>Seleccionar...</option> 
+                                         <option th:value="'Mujeres'">Mujeres</option> 
+                                         <option th:value="'Hombres'">Hombres</option> 
+                                         <option th:value="'Niños/Niñas (<18 años) Otro'">Niños/Niñas (menor de 18 años) Otro</option> 
+                                     </select>    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q12]</span>¿La finca lleva algún tipo de registro?</label>
+									<select th:field="*{ecQ12}" name="" id="" class="form-select" required> 
+                                        <option value="" selected>Seleccionar...</option> 
+                                         <option th:value="'Si'">Si</option> 
+                                         <option th:value="'No'">No</option>
+                                    </select>      
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q13]</span> ¿Cuál es el número de trabajadores?</label>
+                                    <input type="number" th:field="*{ecQ14}" class="form-control" min = "0" required >
+									<span class="validity"></span> 
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q14]</span> ¿Los trabajadores son?</label>
+									<select th:field="*{ecQ15}" name="" id="" class="form-select" required> 
+                                        <option value="" selected>Seleccionar...</option> 
+                                         <option th:value="'Permanentes'">Permanentes</option> 
+                                         <option th:value="'Temporales'">Temporales</option>
+                                         <option th:value="'Hombres'">Hombres</option>
+                                         <option th:value="Mujeres">Mujeres</option>
+                                         <option th:value="'Niños/Niñas (<18 años) Otro'">Niños/Niñas (menor de 18 años) Otro</option>
+                                     </select>
+                                     
+                                    <br>      
+									<label class="form-label"><span class="apuntes">[ec_q15]</span> ¿Cuál es la cantidad promedio de leche/vaca/día?</label>
+                                    <input type="number" th:field="*{ecQ16}" class="form-control" min="0" required>
+                                    
+                                    
+                                    <br>      
+									<label class="form-label"><span class="apuntes">[ec_q16]</span> ¿Cuál es la duración de todo el ordeño (desde la primera vaca hasta la última)?</label>
+                                    <input type="number" th:field="*{ecQ17}" class="form-control" min="0" required>
+                                   
+                                    
+                                    <br>      
+									<label class="form-label"><span class="apuntes">[ec_q17]</span> ¿Cuál es el total de leche entregada?</label>
+                                    <input type="number" th:field="*{ecQ18}" class="form-control" min="0" required>
+
+                                    <br>      
+									<label class="form-label"><span class="apuntes">[ec_q18]</span> ¿Cuál es la valor del litro de leche?</label>
+                                    <input type="number" th:field="*{ecQ19}" class="form-control" min="0" required>   
+                                    
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q19]</span> ¿Realizan pago del litro de leche por calidad composicional / microbiológica/frio?</label>
+									<select th:field="*{ecQ20}" name="" id="" class="form-select" required> 
+                                        <option value="" selected>Seleccionar...</option> 
+                                         <option th:value="'Si'">Si</option> 
+                                         <option th:value="'No'">No</option>
+                                     </select>  
+                                     
+                                    <br>      
+									<label class="form-label"><span class="apuntes">[ec_q20]</span> ¿Cuál es la edad del destete? (separación definitiva del ternero con la madre)</label>
+                                    <input type="number" th:field="*{ecQ21}" class="form-control" min="0"  max = "24" required>
+                                   
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q21]</span> ¿Cúal es el tipo de destete?</label>
+									<select th:field="*{ecQ22}" name="" id="" class="form-select" required> 
+                                        <option value="" selected>Seleccionar...</option> 
+                                         <option th:value="'Paulatino'">Paulatino</option> 
+                                         <option th:value="'Abrupto'">Abrupto</option>
+                                     </select>   
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[ec_q22]</span> ¿Cúal es el manejo reproductivo?</label> 
+                                    <select th:field="*{ecQ23}" name="" id="" class="form-select" required>
+										<option value="" selected>Seleccionar...</option>
+										<option	th:value="'Monta natural'">Monta natural</option>
+										<option	th:value="'Inseminación artificial'">Inseminación artificial</option>
+										<option	th:value="'Transferencia de embriones'">Transferencia de embriones</option>
+										<option th:value="'Inseminación artificial y monta natural'">Inseminación artificial y monta natural</option>
+										<option th:value="'Todas las anteriores'">Todas las	anteriores</option>
+									</select>
+									
+									<br>
+                                    <label class="form-label"><span class="apuntes">[ec_q23]</span> ¿Cómo es el proceso de arreo del ganado?</label> 
+                                    <select th:field="*{ecQ24}" name="" id="" class="form-select" required>
+										<option value="" selected>Seleccionar...</option>
+										<option	th:value="'A pie'">A pie</option>
+										<option	th:value="'A pie con perrero'">A pie con perrero</option>
+										<option	th:value="'A caballo o mula'">A caballo o mula</option>
+										<option th:value="'A caballo o mula con perrero'">A caballo o mula con perrero</option>
+									</select>
+									
+									<br>
+                                    <label class="form-label"><span class="apuntes">[ec_q24]</span> ¿Lava pezones?</label> 
+                                    <select th:field="*{ecQ25}" name="" id="" class="form-select" required>
+										<option value="" selected>Seleccionar...</option>
+										<option	th:value="'Si'">Si</option>
+										<option	th:value="'No'">No</option>
+										
+									</select>
+									<br>
+                                    <label class="form-label"><span class="apuntes">[ec_q25]</span> ¿Seca pezones?</label> 
+                                    <select th:field="*{ecQ26}" name="" id="" class="form-select" required>
+										<option value="" selected>Seleccionar...</option>
+										<option	th:value="'Si'">Si</option>
+										<option	th:value="'No'">No</option>
+									</select>
+									
+									<br>
+                                    <label class="form-label"><span class="apuntes">[ec_q26]</span> ¿Hace despunte?</label> 
+                                    <select th:field="*{ecQ27}" name="" id="" class="form-select" required>
+										<option value="" selected>Seleccionar...</option>
+										<option	th:value="'Si'">Si</option>
+										<option	th:value="'No'">No</option>
+									</select>
+									
+									<br>
+                                    <label class="form-label"><span class="apuntes">[ec_q27]</span> ¿Hace presellado?</label> 
+                                    <select th:field="*{ecQ28}" name="" id="" class="form-select" required>
+										<option value="" selected>Seleccionar...</option>
+										<option	th:value="'Si'">Si</option>
+										<option	th:value="'No'">No</option>
+									</select>
+									
+									<br>
+                                    <label class="form-label"><span class="apuntes">[ec_q28]</span> ¿Cuál es el método de ordeño del pezón?</label> 
+                                    <select th:field="*{ecQ29}" name="" id="" class="form-select" required>
+										<option value="" selected>Seleccionar...</option>
+										<option	th:value="'A mano abierta'">A mano abierta</option>
+										<option	th:value="'Presionando el pezón entre pulgar e índice'">Presionando el pezón entre pulgar e índice</option>
+									</select>
+							
+									<br>
+                                    <label class="form-label"><span class="apuntes">[ec_q29]</span> ¿Hace sellado?</label> 
+                                    <select th:field="*{ecQ30}" name="" id="" class="form-select" required>
+										<option value="" selected>Seleccionar...</option>
+										<option	th:value="'Si'">Si</option>
+										<option	th:value="'No'">No</option>
+									</select>
+									
+									<br>
+                                    <label class="form-label"><span class="apuntes">[ec_q30]</span> ¿Uso del ternero en estimulo inicial para el ordeño?</label> 
+                                    <select th:field="*{ecQ31}" name="" id="" class="form-select" required>
+										<option value="" selected>Seleccionar...</option>
+										<option	th:value="'Si'">Si</option>
+										<option	th:value="'No'">No</option>
+									</select>
+									
+									<br>
+                                    <label class="form-label"><span class="apuntes">[ec_q31]</span> ¿En procedimientos dolorosos tales como topización, castración e identificación usted usa analgesia y/o anestesia?</label> 
+                                    <select th:field="*{ecQ32}" name="" id="" class="form-select" required>
+										<option value="" selected>Seleccionar...</option>
+										<option	th:value="'Si'">Si</option>
+										<option	th:value="'No'">No</option>
+									</select>
+                                </div>
+                            </div>
+                            <br>
+                            <button class="btn btn-primary">Volver</button>
+                            <button type="submit" class="btn btn-success">Siguiente: Libertad 1: libres de hambre y sed</button>
+                      	</form>
+                      	
+                    </div>
+                </div>
+            </div> 
+        </main>
+        <footer class="bg-dark text-white py-3 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8">
+                        <p>©2022 Agrosavia</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-right">Desarrollado por: magicmv.com</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+    <script th:src="@{/js/main.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>   
+</body>
+</html>

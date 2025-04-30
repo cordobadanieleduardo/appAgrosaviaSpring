@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bienestar Animal / Evalución para Ganadería">
+    <meta name="author" content="MAGICMV, willigan">
+    <title>Libertad 3 - Evaluación - Bienestar Animal</title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+	
+	<!--Font Awesome-->
+	<link rel="stylesheet" th:href="@{/css/font-awesome/all.min.css}">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Bienestar Animal</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/inicio-contenido}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/finca/listar}">Finca</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Evaluación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Mi perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Salir</a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header>
+            <div class="container">
+                <img src="..." alt="Imagen">
+                <h1 class="text-center mb-5">Evaluación libertad 2 en vacas en producción</h1>
+            </div>
+           
+        </header>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col-8 mx-auto" >
+                        <p>Libertad 2: libres de incomodidad y malestar</p>
+                        <hr>
+                        <form th:action="@{/evaluacion/libertad2-vaca/guardar}" th:object="${nuevo}" method="post">
+                            <div class="row">
+                                <div class="col-12">
+                                
+                                	<input type="hidden" th:field="*{codEc}" th:value="*{codEc}">
+                                	<input type="hidden" th:field="*{codElvaca}" th:value="*{codElvaca}">
+                                	                                    
+                                    <label class="form-label"><span class="apuntes">[elv_q01] x7</span> ¿Hay presencia de objetos extraños o peligrosos en la pradera (puntillas, alambres, plásticos, costales, lazos y  tarros)?</label>
+                                    <select th:field="*{el2Q01}" name="" id="" class="form-select" required>
+                                        <option value="" selected  >Seleccionar...</option>
+                                        <option th:value="10">Ninguno</option>
+                                        <option th:value="3">Pocos</option>
+                                        <option th:value="1">Muchos</option>
+                                    </select>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q02] x7</span> ¿Hay encharcamiento de la pradera?</label>
+                                    <select th:field="*{el2Q02}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">No existe encharcamiento</option>
+                                        <option th:value="2">Existe encharcamiento </option>
+                                    </select>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q03] x7</span> ¿Cúal es tipo de sombra que ofrece a los animales en la pradera?</label>
+                                    <select th:field="*{el2Q03}" name="" id="" class="form-select" required>
+                                        <option value="" selected  > Seleccionar...</option>  
+                                        <option th:value="10">Se brindan zonas de sombras de tipo natural</option>
+                                        <option th:value="7">Se brindan zonas de sombras de tipo artificial </option>
+                                        <option th:value="1">No se brindan zonas de sombranatural</option>
+                                    </select>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q04] x7</span> ¿Hay limpieza del área preordeño?</label>
+                                    <select th:field="*{el2Q04}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Limpio</option>
+                                        <option th:value="5">Regular</option>
+                                        <option th:value="1">Sucio</option>
+                                        <option th:value="1">No hay</option>
+                                    </select>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q05] x7</span> ¿Hay limpieza del sitio de ordeño?</label>
+                                    <select th:field="*{el2Q05}" name="" id="" class="form-select" required>
+                                        <option value="" selected  >Seleccionar...</option>
+                          			    <option th:value="10">Limpios</option>
+                                        <option th:value="5">Regulares</option>
+                                        <option th:value="1">Sucios</option>
+                                    </select>
+
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q06] x7</span> ¿Hay ruido en la sala de ordeño?</label>
+                                    <select th:field="*{el2Q06}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Aceptables (Dos personas conversando en baja voz)</option>
+                                        <option th:value="4">Inaceptables (Dos personas conversando a gritos)</option>
+                                    </select>
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q07] x5</span> ¿Hay disponibilidad de sombra en el patio preordeño?</label>
+                                    <select th:field="*{el2Q07}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Si</option>
+                                        <option th:value="1">No</option>
+                                    </select>
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q08] x5</span> ¿Hay disponibilidad de agua en el patio preordeño?</label>
+                                    <select th:field="*{el2Q08}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Si</option>
+                                        <option th:value="1">No</option>
+                                    </select>
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q09] x7</span> ¿Cúal es la condición de los caminos?</label>
+                                    <select th:field="*{el2Q09}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Buena</option>
+                                        <option th:value="5">Regular</option>
+                                        <option th:value="1">Mala</option>
+                                        <option th:value="1">No hay caminos</option>
+                                    </select>
+                                    
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q10] x7</span> ¿Cúal es el tipo de superficie del corral?</label>
+                                    <select th:field="*{el2Q10}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="3">Balastro</option>
+                                        <option th:value="3">Tierra</option>
+                                        <option th:value="5">Concreto</option>
+                                        <option th:value="10">Superficies de cucho</option>
+                                    </select>
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q11] x7</span> ¿Existencia del brete?</label>
+                                    <select th:field="*{el2Q11}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Si</option>
+                                        <option th:value="1">No</option>
+                                    </select>
+                                    
+                      
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q12] x7</span> ¿Existencia de la manga?</label>
+                                    <select th:field="*{el2Q12}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Si</option>
+                                        <option th:value="1">No</option>
+                                    </select>
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q13] x7</span> ¿Existencia de sombra en el corral?</label>
+                                    <select th:field="*{el2Q13}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Si</option>
+                                        <option th:value="1">No</option>
+                                    </select>
+                                    
+                                    <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q14] x7</span> ¿Existencia de bebedero(s) en el corral?</label>
+                                    <select th:field="*{el2Q14}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Si</option>
+                                        <option th:value="1">No</option>
+                                    </select>
+                                    
+                                     <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q15] x7</span> ¿Cuál es la condición de los corrales?</label>
+                                    <select th:field="*{el2Q15}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Bueno</option>
+                                        <option th:value="5">Regular</option>
+                                        <option th:value="1">Mala</option>
+                                        <option th:value="1">No tiene</option>
+                                    </select>
+                                    
+                                     <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q16] x7</span> ¿Cuál es la limpieza de los corrales?</label>
+                                    <select th:field="*{el2Q16}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Limpio</option>
+                                        <option th:value="5">Regular</option>
+                                        <option th:value="1">Sucio</option>
+                                    </select>
+                                    
+                                     
+                                     <br>
+                                    <label class="form-label"><span class="apuntes">[elv_q17] x5</span> ¿Cuál es la condición del embarcadero?</label>
+                                    <select th:field="*{el2Q17}" name="" id="" class="form-select" required>
+                                        <option value="0" selected  >Seleccionar...</option>
+                                        <option th:value="10">Bueno</option>
+                                        <option th:value="5">Regular</option>
+                                        <option th:value="1">Malo</option>
+                                        <option th:value="1">No hay</option>
+                                    </select>
+                                </div>       
+                            </div>
+                            <br>
+<!--                            <button class="btn btn-primary">Volver</button> -->
+<!--                             <a class="btn btn-primary" th:href="@{'/evaluacion/libertad2-vaca/'+ *{el1vaca}}" >Volver</a> -->
+                           
+                            <button type="submit" class="btn btn-success">Siguiente: Libertad 3 en Vaca</button>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+        </main>
+        <footer class="bg-dark text-white py-3 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8">
+                        <p>©2022 Agrosavia</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-right">Desarrollado por: magicmv.com</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!--<script src="https://kit.fontawesome.com/62ea397d3a.js" crossorigin="anonymous"></script>-->
+</body>
+</html>

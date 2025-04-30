@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Bienestar Animal / Evalución para Ganadería">
+<meta name="author" content="MAGICMV, willigan">
+<title>Libertad 3 - Evaluación - Bienestar Animal</title>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+
+<!--Font Awesome-->
+<link rel="stylesheet" th:href="@{/css/font-awesome/all.min.css}">
+
+<!-- GOOGLE WEB FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Bienestar Animal</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link" th:href="@{/inicio-contenido}">Inicio</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/finca/listar}">Finca</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page">Evaluación</a></li>
+					<li class="nav-item"><a class="nav-link">Mi perfil</a></li>
+					<li class="nav-item"><a class="nav-link">Salir</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<header>
+		<div class="container">
+			<img src="..." alt="Imagen">
+			<h1 class="text-center mb-5">Evaluación libertades en horros</h1>
+		</div>
+
+	</header>
+	<main>
+		<div class="container">
+			<div class="row">
+				<div class="col-8 mx-auto">
+					<form th:action="@{/evaluacion/libertades-horro/guardar}" th:object="${nuevo}" method="post">
+						<p>Libertad 1: libres de hambre y sed</p>
+						<hr>
+						<div class="row">
+							<div class="col-12">
+ 								<br> 
+								<input type="hidden" th:field="*{codEc}" th:value="*{codEc}"> 
+								
+								<label class="form-label"><span class="apuntes">[elv_q01] x7</span> ¿Cuál es la fuente de agua de bebida?</label>
+								 <select th:field="*{el1Q01}" name="" id="" class="form-select" required>
+									<option value="0" selected>Seleccionar...</option>
+									<option th:value="5">Fuentes de agua naturales (Rios, riachuelo, caños, pozos)</option>
+									<option th:value="10">Agua tratada o de acueducto</option>
+								</select>
+								
+								<br> 
+								<label class="form-label"><span class="apuntes">[elv_q02] x7</span> ¿Cuál es la condición bebederos?</label>
+								<select th:field="*{el1Q02}" name="" id=""
+									class="form-select" required>
+									<option value="0" selected>Seleccionar...</option>
+									<option th:value="1">No hay bebederos</option>
+									<option th:value="10">Bueno</option>
+									<option th:value="5">Regular</option>
+									<option th:value="3">Malo</option>
+								</select> 
+								
+								<br> 
+							   <label class="form-label"><span class="apuntes">[elv_q03] x7</span> ¿Limpieza de los bebederos?</label> 
+							   <select th:field="*{el1Q03}" name="" id=""
+									class="form-select" required>
+									<option value="" selected>Seleccionar...</option>
+									<option th:value="10">Limpios</option>
+									<option th:value="5">Regulares </option>
+									<option th:value="1">Sucios</option>
+								</select>
+								
+								<br> 
+							   <label class="form-label"><span class="apuntes">[elv_q04] x7</span> ¿Hay presencia suficiente de agua en los bebederos?</label> 
+							   <select th:field="*{el1Q04}" name="" id=""
+									class="form-select" required>
+									<option value="" selected>Seleccionar...</option>
+									<option th:value="10">Si</option>
+									<option th:value="1">No </option>
+								</select>
+								
+							   <br> 
+							   <label class="form-label"><span class="apuntes">[elv_q05] x7</span> ¿Número de bebederos por potrero?</label> 
+							   <select th:field="*{el1Q05}" name="" id=""
+									class="form-select" required>
+									<option value="" selected>Seleccionar...</option>
+									<option th:value="1">0</option>
+									<option th:value="7">1 </option>
+									<option th:value="10">2 o más</option>
+								</select>
+								
+								
+							   <br> 
+							   <label class="form-label"><span class="apuntes">[elv_q06] x5</span> ¿Hay presencia de objetos extraños o peligrosos en la pradera (puntillas, alambres, plásticos, costales, lazos y  tarros)?</label> 
+							   <select th:field="*{el1Q06}" name="" id=""
+									class="form-select" required>
+									<option value="" selected>Seleccionar...</option>
+									<option th:value="10">Ninguno</option>
+									<option th:value="3">Pocos </option>
+									<option th:value="1">Muchos</option>
+								</select>
+							
+								
+							</div>
+						</div>
+						<br>
+						<p>Libertad 2: libres de incomodidad y malestar</p>
+						<hr>
+						<div class="row">
+							<div class="col-12">
+									
+							   <br> 
+							   <label class="form-label"><span class="apuntes">[elv_q05] x5</span> ¿Presencia de objetos extraños o peligrosos en la pradera (puntillas, alambres, plásticos, costales, lazos y  tarros)?</label> 
+							   <select th:field="*{el2Q01}" name="" id=""
+									class="form-select" required>
+									<option value="" selected>Seleccionar...</option>
+									<option th:value="10">Durante las primeras 6 horas de vida del ternero</option>
+									<option th:value="4">No se verifica</option>
+								</select>	
+								
+									
+							   <br> 
+							   <label class="form-label"><span class="apuntes">[elv_q05] x5</span> ¿Encharcamiento de la pradera?</label> 
+							   <select th:field="*{el2Q02}" name="" id=""
+									class="form-select" required>
+									<option value="" selected>Seleccionar...</option>
+									<option th:value="2">Existe encharcamiento</option>
+									<option th:value="10">No existe encharcamiento</option>
+								</select>	
+								
+										
+							   <br> 
+							   <label class="form-label"><span class="apuntes">[elv_q05] x5</span> ¿Tipo de sombra que ofrece a los animales en la pradera?</label> 
+							   <select th:field="*{el2Q03}" name="" id=""
+									class="form-select" required>
+									<option value="" selected>Seleccionar...</option>
+									<option th:value="7">Se brindan zonas de sombras de tipo artificial</option>
+									<option th:value="10">Se brindan zonas de sombras de tipo natural</option>
+									<option th:value="1">No se brindan zonas de sombra</option>
+								</select>	
+					
+							   <br> 
+							   <label class="form-label"><span class="apuntes">[elv_q05] x5</span> ¿Condición de los caminos?</label> 
+							   <select th:field="*{el2Q04}" name="" id=""
+									class="form-select" required>
+									<option value="" selected>Seleccionar...</option>
+									<option th:value="10">Buena</option>
+									<option th:value="5">Regular</option>
+									<option th:value="1">Mala</option>
+								</select>	
+							</div>
+						</div>
+						
+						<br>
+
+						<p>Libertad 4: libres de expresar comportamientos normales</p>
+						<hr>
+						<div class="row">
+							<div class="col-12">
+								<br> <label class="form-label"><span class="apuntes">[elv_q04] x10</span> ¿Número de comportamientos agresivos (embestidas, topeteos, desplazamientos, persecusiones) que se presentan en 5 minutos de observación en la pradera?</label> 
+								<select th:field="*{el4Q01}" name="" id="" class="form-select" required>
+									<option value="0" selected>Seleccionar...</option>
+									<option th:value="10">Ninguno</option>
+									<option th:value="1">Entre 1 a 3</option>
+									<option th:value="10">Entre 4 a 6</option>
+									<option th:value="1">Más de 6</option>
+								</select> <br> 
+								<label class="form-label"><span class="apuntes">[elv_q05] x5</span> ¿Número de comportamientos afiliativos (acicalar, roce con cabeza y cuello sin lastimar) que se presentan durante 5 minutos de observación en la pradera?</label> 
+								<select
+									th:field="*{el4Q02}" name="" id="" class="form-select" required>
+									<option value="" selected>Seleccionar...</option>
+									<option th:value="10">Ninguno</option>
+									<option th:value="1">Entre 1 a 3</option>
+									<option th:value="10">Entre 4 a 6</option>
+									<option th:value="1">Más de 6</option>
+								</select>
+							</div>
+						</div>
+												
+						 <br> 
+						 <br> 
+						
+						<button type="submit" class="btn btn-success">Siguiente: continuar evaluación por animal</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer class="bg-dark text-white py-3 mt-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-8">
+					<p>©2022 Agrosavia</p>
+				</div>
+				<div class="col-4">
+					<p class="text-right">Desarrollado por: magicmv.com</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+	<!--<script src="https://kit.fontawesome.com/62ea397d3a.js" crossorigin="anonymous"></script>-->
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bienestar Animal / Evalución para Ganadería">
+    <meta name="author" content="MAGICMV, willigan">
+    <title>Contenido - Bienestar Animal</title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+	
+	<!--Font Awesome-->
+	<link rel="stylesheet" th:href="@{/css/font-awesome/all.min.css}">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Bienestar Animal</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/inicio-contenido}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/finca/listar}">Finca</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/evaluacion/listar}" >Evaluación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Mi perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/logout}">Salir</a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header>
+            <div class="container">
+                <img src="..." alt="Imagen">
+                <h1 class="text-center">Contenido</h1>
+            </div>
+           
+        </header>
+        <main>
+            <div class="container">
+                <p>Para iniciar con una evaluación es necesario primero crear una finca. Luego la aplicación permitirá elegir la finca sobre la que se desean registrar los datos. Las opciones de consulta permiten ver las fincas y evaluaciones creadas. Para mayor información y uso correcto del software consulte el <a href="#">manual de usuario.</a></p>
+                <div class="row">
+                    <div class="col-6">
+                    	<a th:href="@{/finca/nuevo}">
+	                        <div class="card w-80">
+	                            <div class="card-body">
+	                                <h5 class="card-title">1. Crear finca</h5>
+	                                <p class="card-text">Creación de una nueva finca</p>
+	                            </div>
+	                        </div>
+                    	</a>   
+                    </div>
+                    <div class="col-6">
+                    	<a th:href="@{/finca/listar}">
+	                        <div class="card w-80">
+	                            <div class="card-body">
+	                                <h5 class="card-title">2. Consultar fincas</h5>
+	                                <p class="card-text">Gestión de las fincas registradas en la aplicación</p>
+	                            </div>
+	                        </div>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                    	<a th:href="@{/evaluacion/nuevo}">
+	                        <div class="card w-80">
+	                            <div class="card-body">
+	                                <h5 class="card-title">3. Crear evaluación</h5>
+	                                <p class="card-text">Creación de una nueva evaluación para una finca</p>
+	                            </div>
+	                        </div>
+	                  	</a>
+                    </div>
+                    <div class="col-6">
+                    	<a th:href="@{/evaluacion/listar}">
+	                        <div class="card w-80">
+	                            <div class="card-body">
+	                                <h5 class="card-title">4. Consultar evaluaciones</h5>
+	                                <p class="card-text">Consulta de resultados para las evaluaciones realizadas</p>
+	                            </div>
+                        	</div>
+                       	</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="bg-dark text-white py-3 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8">
+                        <p>©2022 Agrosavia</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-right">Desarrollado por: magicmv.com</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+   
+</body>
+</html>

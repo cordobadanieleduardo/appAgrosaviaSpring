@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"> 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bienestar Animal / Evalución para Ganadería">
+    <meta name="author" content="MAGICMV, willigan">
+    <title>Nueva finca - Bienestar Animal</title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+	
+	<!--Font Awesome-->
+	<link rel="stylesheet" th:href="@{/css/font-awesome/all.min.css}">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Bienestar Animal</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/inicio-contenido}">Inicio</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/finca/listar}" aria-current="page">Finca</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/evaluacion/listar}" >Evaluación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Mi perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/logout}" >Salir</a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header>
+            <div class="container">
+                <img src="..." alt="Imagen">
+                <h1 class="text-center mb-5">Registrar nueva finca</h1>
+            </div>
+           
+        </header>
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col-8 mx-auto" >
+						<form th:action="@{/finca/guardar}" th:object="${fincaNuevo}" method="post">
+							<div class="row">
+								<div class="col-12">
+									<label class="form-label">Nombre de la Finca</label>
+									<input type="text" th:field="*{nombreFinca}" class="form-control" required>
+									<br>
+									<label class="form-label">Municipio</label>
+									<input type="text" th:field="*{municipioFinca}" class="form-control" required>
+									<br>
+									<label class="form-label">Vereda</label>
+									<input type="text" th:field="*{veredaFinca}" class="form-control" required>
+									<br>
+									<label class="form-label">Nombre del propietario</label>
+									<input type="text" th:field="*{propietarioFinca}" class="form-control" required>
+									<br>
+									<label class="form-label">Tamaño</label>
+									<select th:field="*{tamanoFinca}" class="form-select" required>
+	                                    <option value="" disabled selected>Seleccionar...</option>
+	                                    <option th:value="'Grande >201'">Grande (>201)</option>
+	                                    <option th:value="'Mediana 51-200'">Mediana (51-200)</option>
+	                                    <option th:value="'Pequeña 1-50'">Pequeña (1-50)</option>
+	                                </select>
+									<br>
+									<label class="form-label">Área total (Ha)</label>
+									<input type="number" th:field="*{areaFinca}" class="form-control" required>
+									<br>
+									<label class="form-label">Área para ganadería (Ha)</label>
+									<input type="number" th:field="*{areaGanaderia}" class="form-control" required>
+									<br>
+									<label class="form-label">Latitud</label>
+									<input type="text" th:field="*{latitudFinca}" class="form-control" required>
+									<br>
+									<label class="form-label">Longitud</label>
+									<input type="text" th:field="*{longitudFinca}" class="form-control" required>
+									<br>
+									<button type="submit" class="btn btn-success">Crear</button>
+								</div>
+							</div>
+						</form>
+                    </div>
+                </div>
+            </div> 
+        </main>
+        <footer class="bg-dark text-white py-3 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8">
+                        <p>©2025 Agrosavia</p>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-right">Desarrollado por: magicmv.com</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!--<script src="https://kit.fontawesome.com/62ea397d3a.js" crossorigin="anonymous"></script>-->
+</body>
+</html>
