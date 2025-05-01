@@ -27,48 +27,48 @@ public class EvaluacionCaracterizacionController {
 	
 	@GetMapping("/listar")
 	public String listar(Model model) {
-		// if(service.getUsuario() == null) {
-		// 	return "index";
-		// }
-		// List<EvaluacionCaracterizacion> evaluacarac = caracterizacionService.listar(String.valueOf(service.getUsuario().getIdentificacion()));
-		List<EvaluacionCaracterizacion> evaluacarac = caracterizacionService.listarAll();
+		if(service.getUsuario() == null) {
+			return "index";
+		}
+		List<EvaluacionCaracterizacion> evaluacarac = caracterizacionService.listar(String.valueOf(service.getUsuario().getIdentificacion()));
+		// List<EvaluacionCaracterizacion> evaluacarac = caracterizacionService.listarAll();
 		model.addAttribute("evaluacarac", evaluacarac);
 		return "evaluacion-consultar";
 	}
 	
 	@GetMapping("/volver")
 	public String volver(Model model) {
-		// if(service.getUsuario() == null) {
-		// 	return "index";
-		// }
+		if(service.getUsuario() == null) {
+			return "index";
+		}
 		model.addAttribute("evaluacionNuevo", new EvaluacionCaracterizacion());
-		// model.addAttribute("fincas", serviceFinca.listar(""+service.getUsuario().getIdentificacion()));
-		model.addAttribute("fincas", serviceFinca.listarAll());
+		model.addAttribute("fincas", serviceFinca.listar(""+service.getUsuario().getIdentificacion()));
+		// model.addAttribute("fincas", serviceFinca.listarAll());
 		return "evaluacion-nuevo";
 	}
 	
 	@GetMapping("/nuevo")
 	public String agregar(Model model) {
-		// if(service.getUsuario() == null) {
-		// 	return "index";
-		// }
+		if(service.getUsuario() == null) {
+			return "index";
+		}
 		model.addAttribute("evaluacionNuevo", new EvaluacionCaracterizacion());
-		// model.addAttribute("fincas", serviceFinca.listar(""+service.getUsuario().getIdentificacion()));
-		model.addAttribute("fincas", serviceFinca.listarAll());
+		model.addAttribute("fincas", serviceFinca.listar(""+service.getUsuario().getIdentificacion()));
+		// model.addAttribute("fincas", serviceFinca.listarAll());
 		return "evaluacion-nuevo";
 	}
 	
 	@PostMapping("/guardar")
 	public String save(@Validated EvaluacionCaracterizacion ec, Model m) {
-		// if(service.getUsuario() == null) {
-		// 	return "index";
-		// }
+		if(service.getUsuario() == null) {
+			return "index";
+		}
 		
 		String codFinca = caracterizacionService.buscarFinca(ec.getEcFinca());
 		
 		ec.setCodFinca(codFinca);
-		// ec.setIdentificacion(String.valueOf(service.getUsuario().getIdentificacion()));
-		ec.setIdentificacion("1");
+		ec.setIdentificacion(String.valueOf(service.getUsuario().getIdentificacion()));
+		
 		int i = caracterizacionService.save(ec);
 		return "redirect:/evaluacion/libertad1-vaca/" + i;
 	}	

@@ -11,28 +11,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ganaderia.ganaderia.interfaces.service.IFincaService;
-// import com.ganaderia.ganaderia.interfaces.service.IUsuarioService;
+import com.ganaderia.ganaderia.interfaces.service.IUsuarioService;
 import com.ganaderia.ganaderia.model.Finca;
 
 @Controller
 @RequestMapping("/finca")
 public class FincaController {
 
-	// @Autowired
-	// private IUsuarioService usuarioService;
+	@Autowired
+	private IUsuarioService usuarioService;
 
 	@Autowired
 	private IFincaService fincaService;
 
 	@GetMapping("/listar")
 	public String listar(Model model) {
-		// if (usuarioService.getUsuario() == null) {
-		// return "index";
-		// }
-
-		// List<Finca> fincas =
-		// fincaService.listar(""+usuarioService.getUsuario().getIdentificacion());
-		List<Finca> fincas = fincaService.listarAll();
+		if (usuarioService.getUsuario() == null) {
+			return "index";
+		}
+		List<Finca> fincas = fincaService.listar("" + usuarioService.getUsuario().getIdentificacion());
 		model.addAttribute("fincas", fincas);
 		return "finca-consultar";
 	}
@@ -45,13 +42,12 @@ public class FincaController {
 
 	@PostMapping("/guardar")
 	public String save(@Validated Finca finca, Model m) {
-		// if (usuarioService.getUsuario() != null) {
-		// finca.setIdentificacion(usuarioService.getUsuario().getIdentificacion());
-		// fincaService.save(finca);
-		// return "redirect:/finca/listar";
-		// }
-		// finca.setIdentificacion(usuarioService.getUsuario().getIdentificacion());
-		finca.setIdentificacion(111);
+		if (usuarioService.getUsuario() != null) {
+			finca.setIdentificacion(usuarioService.getUsuario().getIdentificacion());
+			fincaService.save(finca);
+			return "redirect:/finca/listar";
+		}
+		finca.setIdentificacion(usuarioService.getUsuario().getIdentificacion());
 		fincaService.save(finca);
 		return "redirect:/finca/listar";
 	}

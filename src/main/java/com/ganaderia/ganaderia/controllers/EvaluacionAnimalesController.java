@@ -89,6 +89,7 @@ public class EvaluacionAnimalesController {
 //
 //		int total = vacas + terneros + novillos + terneros + horros + toros;
 //		System.out.println("total "+ total);
+		System.out.println("serviceAnimales.getCodEc()_"+ serviceAnimales.getCodEc());
 		ArrayList<EvaluacionAnimales> evanlist = (ArrayList<EvaluacionAnimales>) serviceAnimales.listaEvaluacionAnimales(serviceAnimales.getCodEc());
 		
 		int numeroAnimales = Integer.parseInt(serviceAnimales.numeroAnimales(String.valueOf(serviceAnimales.getCodEc())));
@@ -222,7 +223,7 @@ public class EvaluacionAnimalesController {
 		System.out.println(animales);
 		
 		int i = terneraService.save(evan);
-//		serviceAnimales.setnovillo(String.valueOf(i));
+		serviceAnimales.setnovillo(String.valueOf(i));
 
 		return "redirect:/evaluacion/animales/ternera/nuevo";
 	}

@@ -46,7 +46,7 @@ public class EvaluacionCaracterizacionService implements IEvaluacionCaracterizac
 
 	@Override
 	public EvaluacionCaracterizacion getec(String ec) {
-		EvaluacionCaracterizacion n =  data.getec(ec);
+		EvaluacionCaracterizacion n = data.getec(ec);
 		return n;
 	}
 

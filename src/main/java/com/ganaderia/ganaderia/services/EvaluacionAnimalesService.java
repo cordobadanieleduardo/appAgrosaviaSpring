@@ -24,16 +24,14 @@ public class EvaluacionAnimalesService implements IEvaluacionAnimalesService{
 
 	@Autowired
 	private IEvaluacionAnimales data; 
-	private int  codEvAn;
+	private int codEvAn;
 	private String codFinca, codEc;
 	private String codElvaca;
-	private String  el1codvaca;
-	private String  novillo;
-	private String  ternera;
+	private String el1codvaca;
+	private String novillo;
+	private String ternera;
 
-	private String  el3codvaca;
-	private String  el4codvaca;
-	private String  el5codvaca;
+	private String el3codvaca,el4codvaca,el5codvaca;
 	@Autowired
 	private IEvaluacionAnimalesVaca dataVaca;
 	

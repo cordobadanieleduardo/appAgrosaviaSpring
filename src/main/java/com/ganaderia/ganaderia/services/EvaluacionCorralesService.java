@@ -43,13 +43,13 @@ public class EvaluacionCorralesService implements IEvaluacionCorralesService {
 
 	@Override
 	public List<EvaluacionCorrales> listaEvaluacionCorrales(String codEc) {
-//		System.out.println("codEc:  "+codEc + " codEvAn:  " + codEvAn);
+//		System.out.println("codEc: "+codEc + " codEvAn: " + codEvAn);
 		return data.listaCorrales(codEc);
 	}
 	
 	@Override
 	public String numCorrales(String codEc) {
-//		System.out.println("codEc:  "+codEc + " codEvAn:  " + codEvAn);
+//		System.out.println("codEc: "+codEc + " codEvAn: " + codEvAn);
 		String codFinca = dataAnimal.obtenerFinca(codEc);
 		return data.numCorrales(codEc, codFinca);
 	}
